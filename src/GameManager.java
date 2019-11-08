@@ -40,4 +40,45 @@ public class GameManager
     {
         return this.windowHeight;
     }
+
+
+    // =================================
+    //
+    //       Functions to Help with
+    //          Printing Messages
+    //
+    // =================================
+    public String pieceTypeToString(PieceType pt)
+    {
+        switch(pt)
+        {
+            case Pawn :
+                return "Pawn";
+            case Bishop :
+                return "Bishop";
+            case Rook :
+                return "Rook";
+            case Knight :
+                return "Knight";
+            case Queen :
+                return "Queen";
+            case King :
+                return "King";
+            default :
+                return "Piece";
+        }
+    }
+
+    public String teamToString(Team t)
+    {
+        switch(t)
+        {
+            case Black :
+                return "black";
+            case White :
+                return "white";
+            default :
+                return "neutral";
+        }
+    }
 }
