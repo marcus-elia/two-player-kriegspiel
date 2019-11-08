@@ -56,4 +56,16 @@ public abstract class Piece
     }
 
     public abstract ArrayList<Integer> getReachableLocations();
+
+    // Convert between 2D coords and an int between 0 and 63
+    public int coordsToLocation(int x, int y)
+    {
+        return x + 8*y;
+    }
+    public int[] locationToCoords(int loc)
+    {
+        int x = loc % 8;
+        int y = (loc - x) / 8;
+        return new int[]{x,y};
+    }
 }
