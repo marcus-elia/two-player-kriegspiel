@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public abstract class Piece
 {
@@ -53,4 +54,6 @@ public abstract class Piece
         this.image = ImageIO.read(new File("chess\\" + this.board.getManager().teamToString(this.team) +
                 this.board.getManager().pieceTypeToString(this.pieceType) + ".png"));
     }
+
+    public abstract ArrayList<Integer> getReachableLocations();
 }
