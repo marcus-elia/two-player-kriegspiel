@@ -22,16 +22,16 @@ public class Game extends Canvas implements Runnable
     private Thread thread;
     private boolean running = false;
 
-    //private FootballGameManager gameManager;
+    private GameManager gameManager;
     private final BufferedImage image;
 
     public Game() throws IOException {
 
-        //gameManager = new FootballGameManager(this, 10);
+        gameManager = new GameManager(this.WIDTH, this.HEIGHT);
         //this.addMouseListener(new MouseInput(gameManager));
         new Window(WIDTH, HEIGHT, "Kriegspiel", this);
         //this.addKeyListener(new KeyInput(handler));
-        image = ImageIO.read(new File("chess\\chess_piece_2_black_bishop.png"));
+        image = ImageIO.read(new File("chess\\blackBishop.png"));
 
     }
 
@@ -88,7 +88,7 @@ public class Game extends Canvas implements Runnable
 
     private void tick()
     {
-        //gameManager.tick();
+        gameManager.tick();
     }
 
     private void render()
@@ -99,17 +99,17 @@ public class Game extends Canvas implements Runnable
             this.createBufferStrategy(3);
             return;
         }
-        Graphics2D g = (Graphics2D) bs.getDrawGraphics();
+        Graphics2D g2d = (Graphics2D) bs.getDrawGraphics();
 
-        g.setColor(Color.black);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
-        //gameManager.render(g);
-
-
-        g.drawImage(image, 0, 0, null);
+        g2d.setColor(Color.blue);
+        g2d.fillRect(0, 0, WIDTH, HEIGHT);
+        gameManager.render(g2d);
 
 
-        g.dispose();
+        g2d.drawImage(image, 0, 0, null);
+
+
+        g2d.dispose();
         bs.show();
     }
 
