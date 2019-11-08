@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.io.IOException;
 
 public class ChessBoard
 {
@@ -7,11 +8,12 @@ public class ChessBoard
     private GameManager manager;
     private int squareWidth; // the width of the chess board squares
 
-    public ChessBoard(GameManager manager)
+    public ChessBoard(GameManager manager) throws IOException
     {
         pieces = new Piece[8][8];
         this.manager = manager;
         this.setSquareWidth();
+        this.fillBoard();
     }
 
     public void tick()
@@ -47,6 +49,11 @@ public class ChessBoard
         }
     }
 
+    // ==========================================
+    //
+    //         Initialization Functions
+    //
+    // ==========================================
 
     // Sets the with of the squares to be 1/10 of whichever is the smaller dimension
     public void setSquareWidth()
@@ -59,7 +66,11 @@ public class ChessBoard
         {
             this.squareWidth = this.manager.getWindowHeight() / 8;
         }
+    }
 
+    public void fillBoard() throws IOException
+    {
+        this.pieces[0][1] = new Pawn(Team.Black, this);
     }
 
     public GameManager getManager()
