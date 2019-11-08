@@ -7,12 +7,14 @@ public class ChessBoard
     private Piece[][] pieces;
     private GameManager manager;
     private int squareWidth; // the width of the chess board squares
+    private int boardSize;   // the size of the entire board
 
     public ChessBoard(GameManager manager) throws IOException
     {
         pieces = new Piece[8][8];
         this.manager = manager;
         this.setSquareWidth();
+        this.boardSize = 8*this.squareWidth;
         this.fillBoard();
     }
 
@@ -107,5 +109,9 @@ public class ChessBoard
     public GameManager getManager()
     {
         return this.manager;
+    }
+    public int getBoardSize()
+    {
+        return this.boardSize;
     }
 }
