@@ -6,12 +6,14 @@ public class GameManager
     private ChessBoard board;
     private int windowWidth;
     private int windowHeight;
+    private boolean isPieceSelected; // does the user have a piece selected
 
     public GameManager(int width, int height) throws IOException
     {
         this.windowWidth = width;
         this.windowHeight = height;
         this.board = new ChessBoard(this);
+        this.isPieceSelected = false;
     }
 
     public void tick()
@@ -40,6 +42,10 @@ public class GameManager
     public int getWindowHeight()
     {
         return this.windowHeight;
+    }
+    public boolean getIsPieceSelected()
+    {
+        return this.isPieceSelected;
     }
 
 
