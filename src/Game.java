@@ -5,11 +5,15 @@ It is a tutorial by RealTutsGML
 
 
 
+import javax.imageio.ImageIO;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Game extends Canvas implements Runnable
@@ -19,14 +23,16 @@ public class Game extends Canvas implements Runnable
     private boolean running = false;
 
     //private FootballGameManager gameManager;
+    private final BufferedImage image;
 
-    public Game()
-    {
+    public Game() throws IOException {
 
         //gameManager = new FootballGameManager(this, 10);
         //this.addMouseListener(new MouseInput(gameManager));
         new Window(WIDTH, HEIGHT, "Kriegspiel", this);
         //this.addKeyListener(new KeyInput(handler));
+        image = ImageIO.read(new File("chess\\chess_piece_2_black_bishop.png"));
+
     }
 
     public synchronized void start()
@@ -99,6 +105,10 @@ public class Game extends Canvas implements Runnable
         g.fillRect(0, 0, WIDTH, HEIGHT);
         //gameManager.render(g);
 
+
+        g.drawImage(image, 0, 0, null);
+
+
         g.dispose();
         bs.show();
     }
@@ -113,8 +123,7 @@ public class Game extends Canvas implements Runnable
         return HEIGHT;
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws IOException {
         new Game();
 
     }
