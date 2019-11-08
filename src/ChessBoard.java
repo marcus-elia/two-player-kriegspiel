@@ -154,4 +154,8 @@ public class ChessBoard
         int[] coords = locationToCoords(loc);
         return pieces[coords[0]][coords[1]] == null;
     }
+    public boolean isEmpty(int x, int y)
+    {
+        return pieces[x][y] == null;
+    }
 }
