@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ChessBoard
 {
@@ -59,6 +60,22 @@ public class ChessBoard
             g2d.setColor(Color.magenta);
             g2d.setStroke(new BasicStroke(5));
             g2d.drawRect(this.selectedXCoord*this.squareWidth, this.selectedYCoord*this.squareWidth,
+                    this.squareWidth, this.squareWidth);
+            highlightAttackableSquares(g2d);
+        }
+    }
+
+    public void highlightAttackableSquares(Graphics2D g2d)
+    {
+        Piece p = this.pieces[selectedXCoord][selectedYCoord];
+        ArrayList<Integer> squaresToHighlight = p.getAttackableLocations();
+        for(int loc : squaresToHighlight)
+        {
+            int x = locationToCoords(loc)[0];
+            int y = locationToCoords(loc)[1];
+            g2d.setColor(Color.magenta);
+            g2d.setStroke(new BasicStroke(5));
+            g2d.drawRect(x*this.squareWidth, y*this.squareWidth,
                     this.squareWidth, this.squareWidth);
         }
     }
