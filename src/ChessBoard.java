@@ -57,6 +57,7 @@ public class ChessBoard
         if(this.manager.getIsPieceSelected())
         {
             g2d.setColor(Color.magenta);
+            g2d.setStroke(new BasicStroke(5));
             g2d.drawRect(this.selectedXCoord*this.squareWidth, this.selectedYCoord*this.squareWidth,
                     this.squareWidth, this.squareWidth);
         }
