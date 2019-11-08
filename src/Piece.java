@@ -6,10 +6,10 @@ import java.io.IOException;
 
 public abstract class Piece
 {
-    private PieceType pieceType;
-    private Team team;
-    public ChessBoard board;
-    private BufferedImage image;
+    protected PieceType pieceType;
+    protected Team team;
+    protected ChessBoard board;
+    protected BufferedImage image;
 
     public Piece(Team team, ChessBoard board) throws IOException {
         this.team = team;
