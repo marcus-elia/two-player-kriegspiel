@@ -88,4 +88,15 @@ public class GameManager
                 return "neutral";
         }
     }
+
+    public void selectPiece(int mx, int my)
+    {
+        this.isPieceSelected = true;
+        this.board.selectPiece(mx, my);
+    }
+
+    public void unselectPiece()
+    {
+        this.isPieceSelected = false;
+    }
 }
