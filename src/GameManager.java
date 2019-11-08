@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.io.IOException;
 
 public class GameManager
 {
@@ -6,7 +7,7 @@ public class GameManager
     private int windowWidth;
     private int windowHeight;
 
-    public GameManager(int width, int height)
+    public GameManager(int width, int height) throws IOException
     {
         this.windowWidth = width;
         this.windowHeight = height;
