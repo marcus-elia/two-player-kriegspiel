@@ -147,4 +147,11 @@ public class ChessBoard
         int y = (loc - x) / 8;
         return new int[]{x,y};
     }
+
+    // Returns true if the given location on the board is empty, false otherwise
+    public boolean isEmpty(int loc)
+    {
+        int[] coords = locationToCoords(loc);
+        return pieces[coords[0]][coords[1]] == null;
+    }
 }
