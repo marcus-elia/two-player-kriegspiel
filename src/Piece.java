@@ -52,11 +52,24 @@ public abstract class Piece
     {
         return this.board;
     }
+    public int getLocation()
+    {
+        return this.location;
+    }
 
+    // ==============================
+    //
+    //            Setters
+    //
+    //===============================
     public void setImage() throws IOException
     {
         this.image = ImageIO.read(new File("chess\\" + this.board.getManager().teamToString(this.team) +
                 this.board.getManager().pieceTypeToString(this.pieceType) + ".png"));
+    }
+    public void setLocation(int loc)
+    {
+        this.location = loc;
     }
 
     public abstract ArrayList<Integer> getReachableLocations();
