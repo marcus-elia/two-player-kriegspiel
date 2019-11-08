@@ -12,9 +12,13 @@ public abstract class Piece
     protected ChessBoard board;
     protected BufferedImage image;
 
-    public Piece(Team team, ChessBoard board) throws IOException {
+    // An int between 0 and 63 representing the position on the board
+    protected int location;
+
+    public Piece(Team team, ChessBoard board, int location) throws IOException {
         this.team = team;
         this.board = board;
+        this.location = location;
     }
 
     public void tick()
