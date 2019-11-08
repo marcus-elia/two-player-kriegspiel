@@ -28,14 +28,13 @@ public class ChessBoard
             {
                 if((i + j) % 2 == 0)
                 {
-                    g2d.setColor(new Color(100, 150, 150));
+                    g2d.setColor(new Color(100, 250, 250));
                 }
                 else
                 {
-                    g2d.setColor(new Color(150, 150, 100));
+                    g2d.setColor(new Color(50, 50, 150));
                 }
-                g2d.fillRect(i*this.squareWidth, j*this.squareWidth,
-                        (i+1)*this.squareWidth, (j+1)*this.squareWidth);
+                g2d.fillRect(i*this.squareWidth, j*this.squareWidth, this.squareWidth, this.squareWidth);
             }
         }
     }
@@ -46,11 +45,11 @@ public class ChessBoard
     {
         if(this.manager.getWindowHeight() > this.manager.getWindowWidth())
         {
-            this.squareWidth = this.manager.getWindowWidth() / 10;
+            this.squareWidth = this.manager.getWindowWidth() / 8;
         }
         else
         {
-            this.squareWidth = this.manager.getWindowHeight() / 10;
+            this.squareWidth = this.manager.getWindowHeight() / 8;
         }
 
     }
