@@ -72,7 +72,7 @@ public abstract class Piece
         this.location = loc;
     }
 
-    public abstract ArrayList<Integer> getReachableLocations();
+    public abstract ArrayList<Integer> getAttackableLocations();
 
     // Convert between 2D coords and an int between 0 and 63
     public int coordsToLocation(int x, int y)

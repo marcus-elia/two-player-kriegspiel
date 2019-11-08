@@ -11,7 +11,7 @@ public class Queen extends Piece
     }
 
     @Override
-    public ArrayList<Integer> getReachableLocations()
+    public ArrayList<Integer> getAttackableLocations()
     {
         return null;
     }

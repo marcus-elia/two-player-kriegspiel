@@ -11,7 +11,7 @@ public class Knight extends Piece
     }
 
     @Override
-    public ArrayList<Integer> getReachableLocations()
+    public ArrayList<Integer> getAttackableLocations()
     {
         ArrayList<Integer> locs = new ArrayList<Integer>();
         int[] coords = locationToCoords(this.location);

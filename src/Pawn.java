@@ -11,8 +11,16 @@ public class Pawn extends Piece
     }
 
     @Override
-    public ArrayList<Integer> getReachableLocations()
+    public ArrayList<Integer> getAttackableLocations()
     {
-        return null;
+        ArrayList<Integer> locs = new ArrayList<Integer>();
+        int[] coords = locationToCoords(this.location);
+        int x = coords[0];
+        int y = coords[1];
+
+        if(this.team == Team.White)
+        {
+            locs
+        }
     }
 }
