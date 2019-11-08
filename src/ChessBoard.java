@@ -128,7 +128,7 @@ public class ChessBoard
 
         // Queens
         this.pieces[3][0] = new Queen(Team.Black, this, coordsToLocation(3, 0));
-        this.pieces[3][7] = new Queen(Team.White, this, coordsToLocation(3, 17));
+        this.pieces[3][7] = new Queen(Team.White, this, coordsToLocation(3, 7));
 
         // Kings
         this.pieces[4][0] = new King(Team.Black, this, coordsToLocation(4, 0));
