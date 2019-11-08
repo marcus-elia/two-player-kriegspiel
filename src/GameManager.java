@@ -8,9 +8,9 @@ public class GameManager
 
     public GameManager(int width, int height)
     {
-        this.board = new ChessBoard(this);
         this.windowWidth = width;
         this.windowHeight = height;
+        this.board = new ChessBoard(this);
     }
 
     public void tick()
