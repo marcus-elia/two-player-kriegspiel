@@ -23,15 +23,14 @@ public class Game extends Canvas implements Runnable
     private boolean running = false;
 
     private GameManager gameManager;
-    private final BufferedImage image;
 
-    public Game() throws IOException {
+    public Game() throws IOException
+    {
 
-        gameManager = new GameManager(this.WIDTH, this.HEIGHT);
+        gameManager = new GameManager(WIDTH, HEIGHT);
         //this.addMouseListener(new MouseInput(gameManager));
         new Window(WIDTH, HEIGHT, "Kriegspiel", this);
         //this.addKeyListener(new KeyInput(handler));
-        image = ImageIO.read(new File("chess\\blackBishop.png"));
 
     }
 
@@ -106,7 +105,7 @@ public class Game extends Canvas implements Runnable
         gameManager.render(g2d);
 
 
-        g2d.drawImage(image, 0, 0, null);
+        //g2d.drawImage(image, 20, 10, 50, 50, null);
 
 
         g2d.dispose();
@@ -123,7 +122,8 @@ public class Game extends Canvas implements Runnable
         return HEIGHT;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException
+    {
         new Game();
 
     }
