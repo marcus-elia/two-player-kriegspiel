@@ -21,11 +21,12 @@ public class ChessBoard
 
     public void render(Graphics2D g2d)
     {
-        // draw the empty spaces
+        // iterate through the board
         for(int i = 0; i < 8; i++)
         {
             for(int j = 0; j < 8; j++)
             {
+                // draw the empty spaces
                 if((i + j) % 2 == 0)
                 {
                     g2d.setColor(new Color(100, 250, 250));
@@ -35,6 +36,13 @@ public class ChessBoard
                     g2d.setColor(new Color(50, 50, 150));
                 }
                 g2d.fillRect(i*this.squareWidth, j*this.squareWidth, this.squareWidth, this.squareWidth);
+
+                // fill in the piece if there is a piece there
+                if(pieces[i][j] != null)
+                {
+                    g2d.drawImage(pieces[i][j].getImage(), i*this.squareWidth, j*this.squareWidth,
+                            this.squareWidth, this.squareWidth, null);
+                }
             }
         }
     }
