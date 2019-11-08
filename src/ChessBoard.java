@@ -61,4 +61,9 @@ public class ChessBoard
         }
 
     }
+
+    public GameManager getManager()
+    {
+        return this.manager;
+    }
 }
