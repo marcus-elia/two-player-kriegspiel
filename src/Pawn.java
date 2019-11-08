@@ -20,7 +20,26 @@ public class Pawn extends Piece
 
         if(this.team == Team.White)
         {
-            locs
+            if(x > 0)
+            {
+                locs.add(coordsToLocation(x-1, y-1));
+            }
+            if(x < 7)
+            {
+                locs.add(coordsToLocation(x+1, y-1));
+            }
         }
+        else if(this.team == Team.Black)
+        {
+            if(x > 0)
+            {
+                locs.add(coordsToLocation(x-1, y+1));
+            }
+            if(x < 7)
+            {
+                locs.add(coordsToLocation(x+1, y+1));
+            }
+        }
+        return locs;
     }
 }
