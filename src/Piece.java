@@ -14,7 +14,6 @@ public abstract class Piece
     public Piece(Team team, ChessBoard board) throws IOException {
         this.team = team;
         this.board = board;
-        this.setImage();
     }
 
     public void tick()
