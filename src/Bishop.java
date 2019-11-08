@@ -61,7 +61,7 @@ public class Bishop extends Piece
         // check down and right
         tempX = x + 1;
         tempY = y + 1;
-        while(tempX > 8 && tempY > 8)
+        while(tempX < 8 && tempY < 8)
         {
             locs.add(coordsToLocation(tempX, tempY));
             if(!this.board.isEmpty(tempX, tempY))
