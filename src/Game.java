@@ -28,7 +28,7 @@ public class Game extends Canvas implements Runnable
     {
 
         gameManager = new GameManager(WIDTH, HEIGHT);
-        //this.addMouseListener(new MouseInput(gameManager));
+        this.addMouseListener(new MouseInput(gameManager));
         new Window(WIDTH, HEIGHT, "Kriegspiel", this);
         //this.addKeyListener(new KeyInput(handler));
 
@@ -103,10 +103,6 @@ public class Game extends Canvas implements Runnable
         g2d.setColor(Color.blue);
         g2d.fillRect(0, 0, WIDTH, HEIGHT);
         gameManager.render(g2d);
-
-
-        //g2d.drawImage(image, 20, 10, 50, 50, null);
-
 
         g2d.dispose();
         bs.show();
