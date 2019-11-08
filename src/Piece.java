@@ -4,10 +4,11 @@ import java.awt.image.BufferedImage;
 public abstract class Piece
 {
     private PieceType pieceType;
+    private Team team;
 
-    public Piece()
+    public Piece(Team team)
     {
-
+        this.team = team;
     }
 
     public void tick()
@@ -20,9 +21,18 @@ public abstract class Piece
 
     }
 
+    // ======================================
+    //
+    //               Getters
+    //
+    // ======================================
     public PieceType getPieceType()
     {
         return this.pieceType;
+    }
+    public Team getTeam()
+    {
+        return this.team;
     }
 
     public abstract BufferedImage getImage();
