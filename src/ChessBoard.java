@@ -9,6 +9,9 @@ public class ChessBoard
     private int squareWidth; // the width of the chess board squares
     private int boardSize;   // the size of the entire board
 
+    private int selectedXCoord;
+    private int selectedYCoord;
+
     public ChessBoard(GameManager manager) throws IOException
     {
         pieces = new Piece[8][8];
@@ -48,6 +51,14 @@ public class ChessBoard
                             this.squareWidth, this.squareWidth, null);
                 }
             }
+        }
+
+        // highlight if a piece is selected
+        if(this.manager.getIsPieceSelected())
+        {
+            g2d.setColor(Color.magenta);
+            g2d.drawRect(this.selectedXCoord*this.squareWidth, this.selectedYCoord*this.squareWidth,
+                    this.squareWidth, this.squareWidth);
         }
     }
 
@@ -113,5 +124,14 @@ public class ChessBoard
     public int getBoardSize()
     {
         return this.boardSize;
+    }
+
+    public void selectPiece(int mx, int my)
+    {
+        if(mx <= this.boardSize && my <= this.boardSize)
+        {
+            this.selectedXCoord = mx / this.squareWidth;
+            this.selectedYCoord = my / this.squareWidth;
+        }
     }
 }
