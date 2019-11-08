@@ -87,35 +87,35 @@ public class ChessBoard
         // Make the pawns
         for(int i = 0; i < 8; i++)
         {
-            this.pieces[i][1] = new Pawn(Team.Black, this);
-            this.pieces[i][6] = new Pawn(Team.White, this);
+            this.pieces[i][1] = new Pawn(Team.Black, this, coordsToLocation(i, 1));
+            this.pieces[i][6] = new Pawn(Team.White, this, coordsToLocation(i, 6));
         }
 
         // Bishops
-        this.pieces[2][0] = new Bishop(Team.Black, this);
-        this.pieces[5][0] = new Bishop(Team.Black, this);
-        this.pieces[2][7] = new Bishop(Team.White, this);
-        this.pieces[5][7] = new Bishop(Team.White, this);
+        this.pieces[2][0] = new Bishop(Team.Black, this, coordsToLocation(2, 0));
+        this.pieces[5][0] = new Bishop(Team.Black, this, coordsToLocation(5, 0));
+        this.pieces[2][7] = new Bishop(Team.White, this, coordsToLocation(2, 7));
+        this.pieces[5][7] = new Bishop(Team.White, this, coordsToLocation(5, 7));
 
         // Rooks
-        this.pieces[0][0] = new Rook(Team.Black, this);
-        this.pieces[7][0] = new Rook(Team.Black, this);
-        this.pieces[0][7] = new Rook(Team.White, this);
-        this.pieces[7][7] = new Rook(Team.White, this);
+        this.pieces[0][0] = new Rook(Team.Black, this, coordsToLocation(0, 0));
+        this.pieces[7][0] = new Rook(Team.Black, this, coordsToLocation(7, 0));
+        this.pieces[0][7] = new Rook(Team.White, this, coordsToLocation(0, 7));
+        this.pieces[7][7] = new Rook(Team.White, this, coordsToLocation(7, 7));
 
         // Knights
-        this.pieces[1][0] = new Knight(Team.Black, this);
-        this.pieces[6][0] = new Knight(Team.Black, this);
-        this.pieces[1][7] = new Knight(Team.White, this);
-        this.pieces[6][7] = new Knight(Team.White, this);
+        this.pieces[1][0] = new Knight(Team.Black, this, coordsToLocation(1, 0));
+        this.pieces[6][0] = new Knight(Team.Black, this, coordsToLocation(6, 0));
+        this.pieces[1][7] = new Knight(Team.White, this, coordsToLocation(1, 7));
+        this.pieces[6][7] = new Knight(Team.White, this, coordsToLocation(6, 7));
 
         // Queens
-        this.pieces[3][0] = new Queen(Team.Black, this);
-        this.pieces[3][7] = new Queen(Team.White, this);
+        this.pieces[3][0] = new Queen(Team.Black, this, coordsToLocation(3, 0));
+        this.pieces[3][7] = new Queen(Team.White, this, coordsToLocation(3, 17));
 
         // Kings
-        this.pieces[4][0] = new King(Team.Black, this);
-        this.pieces[4][7] = new King(Team.White, this);
+        this.pieces[4][0] = new King(Team.Black, this, coordsToLocation(4, 0));
+        this.pieces[4][7] = new King(Team.White, this, coordsToLocation(4, 7));
     }
 
     public GameManager getManager()
@@ -134,5 +134,17 @@ public class ChessBoard
             this.selectedXCoord = mx / this.squareWidth;
             this.selectedYCoord = my / this.squareWidth;
         }
+    }
+
+    // Convert between 2D coords and an int between 0 and 63
+    public int coordsToLocation(int x, int y)
+    {
+        return x + 8*y;
+    }
+    public int[] locationToCoords(int loc)
+    {
+        int x = loc % 8;
+        int y = (loc - x) / 8;
+        return new int[]{x,y};
     }
 }
