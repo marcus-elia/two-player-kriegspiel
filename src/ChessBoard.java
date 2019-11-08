@@ -70,7 +70,38 @@ public class ChessBoard
 
     public void fillBoard() throws IOException
     {
-        this.pieces[0][1] = new Pawn(Team.Black, this);
+        // Make the pawns
+        for(int i = 0; i < 8; i++)
+        {
+            this.pieces[i][1] = new Pawn(Team.Black, this);
+            this.pieces[i][6] = new Pawn(Team.White, this);
+        }
+
+        // Bishops
+        this.pieces[2][0] = new Bishop(Team.Black, this);
+        this.pieces[5][0] = new Bishop(Team.Black, this);
+        this.pieces[2][7] = new Bishop(Team.White, this);
+        this.pieces[5][7] = new Bishop(Team.White, this);
+
+        // Rooks
+        this.pieces[0][0] = new Rook(Team.Black, this);
+        this.pieces[7][0] = new Rook(Team.Black, this);
+        this.pieces[0][7] = new Rook(Team.White, this);
+        this.pieces[7][7] = new Rook(Team.White, this);
+
+        // Knights
+        this.pieces[1][0] = new Knight(Team.Black, this);
+        this.pieces[6][0] = new Knight(Team.Black, this);
+        this.pieces[1][7] = new Knight(Team.White, this);
+        this.pieces[6][7] = new Knight(Team.White, this);
+
+        // Queens
+        this.pieces[3][0] = new Queen(Team.Black, this);
+        this.pieces[3][7] = new Queen(Team.White, this);
+
+        // Kings
+        this.pieces[4][0] = new King(Team.Black, this);
+        this.pieces[4][7] = new King(Team.White, this);
     }
 
     public GameManager getManager()
