@@ -339,7 +339,8 @@ public class ChessBoard
         {
             for(int j = 0; j < 8; j++)
             {
-                if(theBoard[i][j].getTeam() == team && theBoard[i][j].getPieceType() == PieceType.King)
+                if(theBoard[i][j] != null &&
+                        theBoard[i][j].getTeam() == team && theBoard[i][j].getPieceType() == PieceType.King)
                 {
                     kingLoc = coordsToLocation(i, j);
                 }
@@ -383,6 +384,7 @@ public class ChessBoard
         }
         int prevLoc = p.getLocation();
         this.setBoardLocation(copiedBoard, p, loc);
+        p.setLocation(loc);
         this.setBoardLocation(copiedBoard, null, prevLoc);
         return copiedBoard;
     }
