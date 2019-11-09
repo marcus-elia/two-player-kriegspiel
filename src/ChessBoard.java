@@ -148,6 +148,11 @@ public class ChessBoard
         }
     }
 
+    // ====================================
+    //
+    //             Getters
+    //
+    // ====================================
     public GameManager getManager()
     {
         return this.manager;
@@ -176,6 +181,9 @@ public class ChessBoard
     {
         return this.selectedYCoord;
     }
+
+
+
 
     // Given a mouse click happened on the board, return the square
     // that was clicked
@@ -351,5 +359,30 @@ public class ChessBoard
             }
         }
         return false;
+    }
+
+    public void setBoardLocation(Piece[][] board, Piece p, int loc)
+    {
+        int x = locationToCoords(loc)[0];
+        int y = locationToCoords(loc)[1];
+        board[x][y] = p;
+        p.setLocation(loc);
+    }
+
+    // Returns a copied version of this board with p moved to loc
+    public Piece[][] copyBoardMove(Piece p, int loc)
+    {
+        Piece[][] copiedBoard = new Piece[8][8];
+        for(int i = 0; i < 8; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                copiedBoard[i][j] = this.pieces[i][j];
+            }
+        }
+        int prevLoc = p.getLocation();
+        this.setBoardLocation(copiedBoard, p, loc);
+        this.setBoardLocation(copiedBoard, null, prevLoc);
+        return copiedBoard;
     }
 }
