@@ -375,7 +375,15 @@ public class ChessBoard
         if(this.containsEnemy(p.getTeam(), loc))
         {
             System.out.println(this.manager.teamToString(p.getTeam()) + " has moved and captured on");
-            blackPieces.remove(pieces[x][y]);
+            if(p.getTeam() == Team.White)
+            {
+                blackPieces.remove(pieces[x][y]);
+            }
+            else
+            {
+                whitePieces.remove(pieces[x][y]);
+            }
+
         }
 
         this.pieces[x][y] = p;
