@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class GameManager
 {
@@ -8,6 +9,7 @@ public class GameManager
     private int windowHeight;
     private boolean isPieceSelected; // does the user have a piece selected
     private Team whoseTurn;
+    private boolean gameIsActive;
 
     public GameManager(int width, int height) throws IOException
     {
@@ -16,6 +18,7 @@ public class GameManager
         this.board = new ChessBoard(this);
         this.isPieceSelected = false;
         this.whoseTurn = Team.White;
+        this.gameIsActive = true;
     }
 
     public void tick()
@@ -103,6 +106,11 @@ public class GameManager
 
     public void reactToClick(int mx, int my)
     {
+        if(this.board.isUpdating() || !this.gameIsActive)
+        {
+            return;
+        }
+
         // If the click is on the board
         if(mx <= this.board.getBoardSize() && my <= this.board.getBoardSize())
         {
@@ -144,10 +152,11 @@ public class GameManager
                 }
                 else
                 {
-                    System.out.println("Can't move there");
+                    System.out.println("That is not a legal move.");
                 }
             }
         }
+        this.checkForStalemate();
     }
 
     public void selectPiece(int mx, int my)
@@ -171,5 +180,29 @@ public class GameManager
         {
             this.whoseTurn = Team.White;
         }
+    }
+
+    public void checkForStalemate()
+    {
+        ArrayList<Piece> piecesToCheck;
+        if(this.whoseTurn == Team.White)
+        {
+            piecesToCheck = this.board.getWhitePieces();
+        }
+        else
+        {
+            piecesToCheck = this.board.getBlackPieces();
+        }
+
+        // Check if the pieces can move
+        for(Piece p : piecesToCheck)
+        {
+            if(p.canMove())
+            {
+                return;  // no stalemate
+            }
+        }
+        System.out.println("The game is a stalemate");
+        this.gameIsActive = false;
     }
 }
