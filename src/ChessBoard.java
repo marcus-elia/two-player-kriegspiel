@@ -94,6 +94,10 @@ public class ChessBoard
     public void highlightMovableLocations(Graphics2D g2d)
     {
         Piece p = this.renderableBoard[selectedXCoord][selectedYCoord];
+        if(p == null)
+        {
+            return;
+        }
         ArrayList<Integer> squaresToHighlight = p.getMovableLocations();
         for(int loc : squaresToHighlight)
         {
