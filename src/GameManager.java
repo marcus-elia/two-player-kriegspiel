@@ -156,7 +156,23 @@ public class GameManager
                 }
             }
         }
-        this.checkForStalemate();
+
+        // Check if the game is over
+        if(this.checkForDraw())
+        {
+            System.out.println("The game is a draw.");
+            this.gameIsActive = false;
+        }
+        if(this.checkForStalemate())
+        {
+            System.out.println("The game is a stalemate");
+            this.gameIsActive = false;
+        }
+        if(this.checkForCheckmate())
+        {
+            System.out.println("Checkmate");
+            this.gameIsActive = false;
+        }
     }
 
     public void selectPiece(int mx, int my)
@@ -182,7 +198,8 @@ public class GameManager
         }
     }
 
-    public void checkForStalemate()
+    // Return true if the team whose turn it is can move
+    public boolean checkCanMove()
     {
         ArrayList<Piece> piecesToCheck;
         if(this.whoseTurn == Team.White)
@@ -199,10 +216,25 @@ public class GameManager
         {
             if(p.canMove())
             {
-                return;  // no stalemate
+                return true;
             }
         }
-        System.out.println("The game is a stalemate");
-        this.gameIsActive = false;
+        return false;
+    }
+
+    // Return true if both team have only a king
+    public boolean checkForDraw()
+    {
+        return this.board.getWhitePieces().size() == 1 && this.board.getBlackPieces().size() == 1;
+    }
+
+    public boolean checkForStalemate()
+    {
+        return !this.checkCanMove() && !this.board.isInCheck(this.whoseTurn, this.board.getPieces());
+    }
+
+    public boolean checkForCheckmate()
+    {
+        return !this.checkCanMove() && this.board.isInCheck(this.whoseTurn, this.board.getPieces());
     }
 }
