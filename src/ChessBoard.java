@@ -198,6 +198,19 @@ public class ChessBoard
     {
         return this.selectedYCoord;
     }
+    public Piece getPieceAtLocation(int loc)
+    {
+        int x = locationToCoords(loc)[0];
+        int y = locationToCoords(loc)[1];
+        return this.pieces[x][y];
+    }
+
+    public void setPieceAtLocation(Piece p, int loc)
+    {
+        int x = locationToCoords(loc)[0];
+        int y = locationToCoords(loc)[1];
+        this.pieces[x][y] = p;
+    }
 
 
 
@@ -419,5 +432,25 @@ public class ChessBoard
         return isIllegal;
     }*/
 
-    public boolean wouldPutSelfInCheck
+    public boolean wouldPutSelfInCheck(Team team, Piece p, int loc)
+    {
+        // Store previous data to return everything when done
+        int prevLoc = p.getLocation();
+        Piece prevPiece = this.getPieceAtLocation(loc);
+
+        // Move the piece
+        this.setPieceAtLocation(p, loc);
+        p.setLocation(loc);
+        this.setPieceAtLocation(null, prevLoc);
+
+        // Look for check
+        boolean isIllegal = this.isInCheck(team, this.pieces);
+
+        // Put the pieces back
+        this.setPieceAtLocation(p, prevLoc);
+        p.setLocation(prevLoc);
+        this.setPieceAtLocation(prevPiece, loc);
+        
+        return isIllegal;
+    }
 }
