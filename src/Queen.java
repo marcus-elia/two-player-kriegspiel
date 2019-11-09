@@ -11,7 +11,7 @@ public class Queen extends Piece
     }
 
     @Override
-    public ArrayList<Integer> getAttackableLocations()
+    public void setAttackableLocations()
     {
         ArrayList<Integer> locs = new ArrayList<Integer>();
         int[] coords = locationToCoords(this.location);
@@ -117,12 +117,12 @@ public class Queen extends Piece
             tempX++;
             tempY++;
         }
-        return locs;
+        this.attackableLocations = locs;
     }
 
     @Override
-    public ArrayList<Integer> getMovableLocationsIgnoringCheck()
+    public void setMovableLocationsIgnoringCheck()
     {
-        return this.getAttackableNonTeammateLocations();
+        this.movableLocationsIgnoringCheck = this.getAttackableNonTeammateLocations();
     }
 }

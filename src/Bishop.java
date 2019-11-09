@@ -12,7 +12,7 @@ public class Bishop extends Piece
 
     @Override
     // Check along each of the four diagonals until you go out of bounds or hit a piece
-    public ArrayList<Integer> getAttackableLocations()
+    public void setAttackableLocations()
     {
         ArrayList<Integer> locs = new ArrayList<Integer>();
         int[] coords = locationToCoords(this.location);
@@ -71,12 +71,12 @@ public class Bishop extends Piece
             tempX++;
             tempY++;
         }
-        return locs;
+        this.attackableLocations = locs;
     }
 
     @Override
-    public ArrayList<Integer> getMovableLocationsIgnoringCheck()
+    public void setMovableLocationsIgnoringCheck()
     {
-        return this.getAttackableNonTeammateLocations();
+        this.movableLocationsIgnoringCheck = this.getAttackableNonTeammateLocations();
     }
 }

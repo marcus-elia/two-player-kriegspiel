@@ -12,7 +12,7 @@ public class Rook extends Piece
 
     @Override
     // Check in each of the 4 directions until you find another piece, or reach and edge
-    public ArrayList<Integer> getAttackableLocations()
+    public void setAttackableLocations()
     {
         ArrayList<Integer> locs = new ArrayList<Integer>();
         int[] coords = locationToCoords(this.location);
@@ -63,12 +63,12 @@ public class Rook extends Piece
             }
             tempY++;
         }
-        return locs;
+        this.attackableLocations = locs;
     }
 
     @Override
-    public ArrayList<Integer> getMovableLocationsIgnoringCheck()
+    public void setMovableLocationsIgnoringCheck()
     {
-        return this.getAttackableNonTeammateLocations();
+        this.movableLocationsIgnoringCheck = this.getAttackableNonTeammateLocations();
     }
 }

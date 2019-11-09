@@ -11,7 +11,7 @@ public class Pawn extends Piece
     }
 
     @Override
-    public ArrayList<Integer> getAttackableLocations()
+    public void setAttackableLocations()
     {
         ArrayList<Integer> locs = new ArrayList<Integer>();
         int[] coords = locationToCoords(this.location);
@@ -40,11 +40,11 @@ public class Pawn extends Piece
                 locs.add(coordsToLocation(x+1, y+1));
             }
         }
-        return locs;
+        this.attackableLocations = locs;
     }
 
     @Override
-    public ArrayList<Integer> getMovableLocationsIgnoringCheck()
+    public void setMovableLocationsIgnoringCheck()
     {
         ArrayList<Integer> locs = new ArrayList<Integer>();
 
@@ -84,6 +84,6 @@ public class Pawn extends Piece
                 }
             }
         }
-        return locs;
+        this.movableLocationsIgnoringCheck = locs;
     }
 }
