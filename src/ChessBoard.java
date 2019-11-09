@@ -197,6 +197,19 @@ public class ChessBoard
         return pieces[x][y] == null;
     }
 
+    public boolean containsTeammate(Team team, int loc)
+    {
+        int x = locationToCoords(loc)[0];
+        int y = locationToCoords(loc)[1];
+        if(team == Team.White)
+        {
+            return this.whitePieces.contains(pieces[x][y]);
+        }
+        else
+        {
+            return this.blackPieces.contains(pieces[x][y]);
+        }
+    }
     public boolean containsTeammate(Team team, int x, int y)
     {
         if(team == Team.White)
@@ -208,7 +221,19 @@ public class ChessBoard
             return this.blackPieces.contains(pieces[x][y]);
         }
     }
-
+    public boolean containsEnemy(Team team, int loc)
+    {
+        int x = locationToCoords(loc)[0];
+        int y = locationToCoords(loc)[1];
+        if(team == Team.Black)
+        {
+            return this.whitePieces.contains(pieces[x][y]);
+        }
+        else
+        {
+            return this.blackPieces.contains(pieces[x][y]);
+        }
+    }
     public boolean containsEnemy(Team team, int x, int y)
     {
         if(team == Team.Black)
