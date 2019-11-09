@@ -373,6 +373,7 @@ public class ChessBoard
 
         p.setLocation(loc);
         this.updateRenderableBoard();
+        this.updatePieces();
 
         // Print check message
         if(this.isInCheck(this.getOtherTeam(p.getTeam()), this.pieces))
@@ -431,6 +432,21 @@ public class ChessBoard
         board[x][y] = p;
     }
 
+    // This makes all of the pieces update their ArrayLists for locations
+    public void updatePieces()
+    {
+        for(int i = 0; i < 8; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                if(pieces[i][j] != null)
+                {
+                    pieces[i][j].update();
+                }
+            }
+        }
+    }
+
     // Returns a copied version of this board with p moved to loc
     public Piece[][] copyBoardMove(Piece p, int loc)
     {
@@ -471,6 +487,7 @@ public class ChessBoard
         this.setPieceAtLocation(p, loc);
         p.setLocation(loc);
         this.setPieceAtLocation(null, prevLoc);
+        this.updatePieces();
 
         // Look for check
         boolean isIllegal = this.isInCheck(team, this.pieces);
@@ -479,6 +496,7 @@ public class ChessBoard
         this.setPieceAtLocation(p, prevLoc);
         p.setLocation(prevLoc);
         this.setPieceAtLocation(prevPiece, loc);
+        this.updatePieces();
 
         return isIllegal;
     }
