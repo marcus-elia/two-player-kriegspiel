@@ -20,7 +20,7 @@ public class Pawn extends Piece
 
         if(this.team == Team.White)
         {
-            if(x > 0)
+            if(x > 0) // Assume pawn is not on top row
             {
                 locs.add(coordsToLocation(x-1, y-1));
             }
@@ -31,7 +31,7 @@ public class Pawn extends Piece
         }
         else if(this.team == Team.Black)
         {
-            if(x > 0)
+            if(x > 0) // Assume pawn is not on bottom row
             {
                 locs.add(coordsToLocation(x-1, y+1));
             }
