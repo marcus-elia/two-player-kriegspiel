@@ -276,4 +276,18 @@ public class ChessBoard
     {
         return p.getMovableLocationsIgnoringCheck().contains(coordsToLocation(x, y));
     }
+
+    public void move(Piece p, int loc)
+    {
+        int x = locationToCoords(loc)[0];
+        int y = locationToCoords(loc)[1];
+        this.pieces[x][y] = p;
+
+        int prevLoc = p.getLocation();
+        int prevX = locationToCoords(prevLoc)[0];
+        int prevY = locationToCoords(prevLoc)[1];
+        this.pieces[prevX][prevY] = null;
+
+        p.setLocation(loc);
+    }
 }
