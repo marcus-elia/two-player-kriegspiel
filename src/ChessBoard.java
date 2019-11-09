@@ -363,8 +363,7 @@ public class ChessBoard
         return p.getMovableLocations().contains(coordsToLocation(x, y));
     }
 
-    public void move(Piece p, int loc)
-    {
+    public void move(Piece p, int loc) throws IOException {
         this.isUpdating = true;
 
         // If we shouldn't be allowed to move there, raise an exception
@@ -398,13 +397,32 @@ public class ChessBoard
         this.pieces[prevX][prevY] = null;
 
         p.setLocation(loc);
+        // check for promotion
+        if(p.getPieceType() == PieceType.Pawn && (y == 0 || y == 7))
+        {
+            // Replace the pawn with a queen if it has reached the end
+            this.pieces[x][y] = new Queen(p.getTeam(), this, loc);
+
+            // Remove the pawn
+            if(p.getTeam() == Team.White)
+            {
+                this.whitePieces.remove(p);
+                this.whitePieces.add(pieces[x][y]);
+            }
+            else
+            {
+                this.blackPieces.remove(p);
+                this.blackPieces.add(pieces[x][y]);
+            }
+        }
+
         this.updateRenderableBoard();
         this.updatePieces();
 
         // Print check message
         if(this.isInCheck(this.getOtherTeam(p.getTeam()), this.pieces))
         {
-            System.out.println("The " + this.manager.teamToString(this.getOtherTeam(p.getTeam())) + " is in check.");
+            System.out.println("The " + this.manager.teamToString(this.getOtherTeam(p.getTeam())) + " king is in check.");
         }
 
         this.isUpdating = false;
