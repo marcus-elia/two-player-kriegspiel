@@ -29,7 +29,7 @@ public class Game extends Canvas implements Runnable
 
         gameManager = new GameManager(WIDTH, HEIGHT);
         this.addMouseListener(new MouseInput(gameManager));
-        new Window(WIDTH, HEIGHT, "Kriegspiel", this);
+        new Window(WIDTH + 20, HEIGHT + 20, "Kriegspiel", this);
         //this.addKeyListener(new KeyInput(handler));
 
     }
@@ -101,7 +101,7 @@ public class Game extends Canvas implements Runnable
         Graphics2D g2d = (Graphics2D) bs.getDrawGraphics();
 
         g2d.setColor(Color.blue);
-        g2d.fillRect(0, 0, WIDTH, HEIGHT);
+        g2d.fillRect(0, 0, WIDTH + 20, HEIGHT + 20);
         gameManager.render(g2d);
 
         g2d.dispose();
