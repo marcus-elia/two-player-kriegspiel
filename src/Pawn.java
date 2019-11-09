@@ -18,6 +18,12 @@ public class Pawn extends Piece
         int x = coords[0];
         int y = coords[1];
 
+        if(y == 0 || y == 7)
+        {
+            this.attackableLocations = locs;
+            return;
+        }
+
         if(this.team == Team.White)
         {
             if(x > 0) // Assume pawn is not on top row
@@ -55,6 +61,12 @@ public class Pawn extends Piece
             {
                 locs.add(loc);
             }
+        }
+
+        if(this.location < 8 || this.location > 55) // top or bottom row
+        {
+            this.movableLocationsIgnoringCheck = locs;
+            return;
         }
 
         // Check the space(s) in front of this one
