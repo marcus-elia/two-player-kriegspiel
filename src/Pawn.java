@@ -42,4 +42,48 @@ public class Pawn extends Piece
         }
         return locs;
     }
+
+    @Override
+    public ArrayList<Integer> getMovableLocationsIgnoringCheck()
+    {
+        ArrayList<Integer> locs = new ArrayList<Integer>();
+
+        // If an enemy is at a diagonal attackable square, add the loc
+        for(int loc : this.getAttackableLocations())
+        {
+            if(this.board.containsEnemy(this.team, loc))
+            {
+                locs.add(loc);
+            }
+        }
+
+        // Check the space(s) in front of this one
+        int x = locationToCoords(this.location)[0];
+        int y = locationToCoords(this.location)[1];
+        if(this.team == Team.White)
+        {
+            if(this.board.isEmpty(x, y-1))
+            {
+                locs.add(coordsToLocation(x, y-1));
+
+                if(y == 6 && this.board.isEmpty(x, y-2))
+                {
+                    locs.add(coordsToLocation(x, y-2));
+                }
+            }
+        }
+        else
+        {
+            if(this.board.isEmpty(x, y+1))
+            {
+                locs.add(coordsToLocation(x, y+1));
+
+                if(y == 1 && this.board.isEmpty(x, y+2))
+                {
+                    locs.add(coordsToLocation(x, y+2));
+                }
+            }
+        }
+        return locs;
+    }
 }
