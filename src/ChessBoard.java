@@ -65,14 +65,14 @@ public class ChessBoard
             g2d.setStroke(new BasicStroke(5));
             g2d.drawRect(this.selectedXCoord*this.squareWidth, this.selectedYCoord*this.squareWidth,
                     this.squareWidth, this.squareWidth);
-            highlightMovableLocationsIgnoringCheck(g2d);
+            highlightMovableLocations(g2d);
         }
     }
 
-    public void highlightMovableLocationsIgnoringCheck(Graphics2D g2d)
+    public void highlightMovableLocations(Graphics2D g2d)
     {
         Piece p = this.pieces[selectedXCoord][selectedYCoord];
-        ArrayList<Integer> squaresToHighlight = p.getMovableLocationsIgnoringCheck();
+        ArrayList<Integer> squaresToHighlight = p.getMovableLocations();
         for(int loc : squaresToHighlight)
         {
             int x = locationToCoords(loc)[0];
