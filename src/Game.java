@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class Game extends Canvas implements Runnable
 {
-    public static final int WIDTH = 768, HEIGHT = WIDTH/2;
+    public static final int WIDTH = 768 + 20, HEIGHT = WIDTH/2 + 20;
     private Thread thread;
     private boolean running = false;
 
@@ -27,9 +27,9 @@ public class Game extends Canvas implements Runnable
     public Game() throws IOException
     {
 
-        gameManager = new GameManager(WIDTH, HEIGHT);
+        gameManager = new GameManager(WIDTH - 20, HEIGHT - 20);
         this.addMouseListener(new MouseInput(gameManager));
-        new Window(WIDTH + 20, HEIGHT + 20, "Kriegspiel", this);
+        new Window(WIDTH, HEIGHT, "Kriegspiel", this);
         //this.addKeyListener(new KeyInput(handler));
 
     }
@@ -101,7 +101,7 @@ public class Game extends Canvas implements Runnable
         Graphics2D g2d = (Graphics2D) bs.getDrawGraphics();
 
         g2d.setColor(Color.blue);
-        g2d.fillRect(0, 0, WIDTH + 20, HEIGHT + 20);
+        g2d.fillRect(0, 0, WIDTH, HEIGHT);
         gameManager.render(g2d);
 
         g2d.dispose();
