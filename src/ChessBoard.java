@@ -285,11 +285,13 @@ public class ChessBoard
     // If the piece can move to the given location on the board
     public boolean canMove(Piece p, int loc)
     {
-        return p.getMovableLocationsIgnoringCheck().contains(loc);
+        //return p.getMovableLocationsIgnoringCheck().contains(loc);
+        return p.getMovableLocations().contains(loc);
     }
     public boolean canMove(Piece p, int x, int y)
     {
-        return p.getMovableLocationsIgnoringCheck().contains(coordsToLocation(x, y));
+        //return p.getMovableLocationsIgnoringCheck().contains(coordsToLocation(x, y));
+        return p.getMovableLocations().contains(coordsToLocation(x, y));
     }
 
     public void move(Piece p, int loc)
@@ -366,7 +368,6 @@ public class ChessBoard
         int x = locationToCoords(loc)[0];
         int y = locationToCoords(loc)[1];
         board[x][y] = p;
-        p.setLocation(loc);
     }
 
     // Returns a copied version of this board with p moved to loc
