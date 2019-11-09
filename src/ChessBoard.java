@@ -385,4 +385,16 @@ public class ChessBoard
         this.setBoardLocation(copiedBoard, null, prevLoc);
         return copiedBoard;
     }
+
+    // Returns true if moving p to loc would put the team in check
+    public boolean wouldPutSelfInCheck(Team team, Piece p, int loc)
+    {
+        int prevLoc = p.getLocation(); // store this to move p back when finished
+
+        Piece[][] copiedBoard = this.copyBoardMove(p, loc);
+        boolean isIllegal = this.isInCheck(team, copiedBoard);
+
+        p.setLocation(prevLoc); // Move p back to where it was
+        return isIllegal;
+    }
 }
