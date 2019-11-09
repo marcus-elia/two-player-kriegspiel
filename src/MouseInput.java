@@ -1,5 +1,6 @@
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 public class MouseInput implements MouseListener
 {
@@ -22,7 +23,11 @@ public class MouseInput implements MouseListener
         int mx = e.getX();
         int my = e.getY();
 
-        manager.reactToClick(mx, my);
+        try {
+            manager.reactToClick(mx, my);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
 
     }

@@ -104,8 +104,7 @@ public class GameManager
     //
     // ======================================
 
-    public void reactToClick(int mx, int my)
-    {
+    public void reactToClick(int mx, int my) throws IOException {
         if(this.board.isUpdating() || !this.gameIsActive)
         {
             return;
