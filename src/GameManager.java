@@ -89,6 +89,28 @@ public class GameManager
         }
     }
 
+    // ======================================
+    //
+    //          Reacting to Clicks
+    //
+    // ======================================
+
+    public void reactToClick(int mx, int my)
+    {
+        // If the click is on the board
+        if(mx <= this.board.getBoardSize() && my <= this.board.getBoardSize())
+        {
+            if(!this.getIsPieceSelected())
+            {
+                this.selectPiece(mx, my);
+            }
+            else
+            {
+                this.unselectPiece();
+            }
+        }
+    }
+
     public void selectPiece(int mx, int my)
     {
         this.isPieceSelected = true;

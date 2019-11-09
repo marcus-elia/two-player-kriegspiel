@@ -22,18 +22,8 @@ public class MouseInput implements MouseListener
         int mx = e.getX();
         int my = e.getY();
 
-        // If the click is on the board
-        if(mx <= manager.getBoard().getBoardSize() && my <= manager.getBoard().getBoardSize())
-        {
-            if(!manager.getIsPieceSelected())
-            {
-                manager.selectPiece(mx, my);
-            }
-            else
-            {
-                manager.unselectPiece();
-            }
-        }
+        manager.reactToClick(mx, my);
+
 
     }
 
