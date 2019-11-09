@@ -196,4 +196,28 @@ public class ChessBoard
     {
         return pieces[x][y] == null;
     }
+
+    public boolean containsTeammate(Team team, int x, int y)
+    {
+        if(team == Team.White)
+        {
+            return this.whitePieces.contains(pieces[x][y]);
+        }
+        else
+        {
+            return this.blackPieces.contains(pieces[x][y]);
+        }
+    }
+
+    public boolean containsEnemy(Team team, int x, int y)
+    {
+        if(team == Team.Black)
+        {
+            return this.whitePieces.contains(pieces[x][y]);
+        }
+        else
+        {
+            return this.blackPieces.contains(pieces[x][y]);
+        }
+    }
 }
