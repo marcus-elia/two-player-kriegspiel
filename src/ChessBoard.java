@@ -20,15 +20,20 @@ public class ChessBoard
 
     public ChessBoard(GameManager manager) throws IOException
     {
-        this.pieces = new Piece[8][8];
-        this.renderableBoard = new Piece[8][8];
         this.whitePieces = new ArrayList<Piece>();
         this.blackPieces = new ArrayList<Piece>();
+
         this.manager = manager;
-        this.setSquareWidth();
-        this.boardSize = 8*this.squareWidth;
+        this.pieces = new Piece[8][8];
+        this.renderableBoard = new Piece[8][8];
+
         this.fillBoard();
         this.updateRenderableBoard();
+
+
+        this.setSquareWidth();
+        this.boardSize = 8*this.squareWidth;
+
     }
 
     public void tick()
@@ -450,7 +455,7 @@ public class ChessBoard
         this.setPieceAtLocation(p, prevLoc);
         p.setLocation(prevLoc);
         this.setPieceAtLocation(prevPiece, loc);
-        
+
         return isIllegal;
     }
 }
