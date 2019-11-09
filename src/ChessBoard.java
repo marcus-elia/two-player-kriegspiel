@@ -245,4 +245,12 @@ public class ChessBoard
             return this.blackPieces.contains(pieces[x][y]);
         }
     }
+    public boolean canMove(Piece p, int loc)
+    {
+        return p.getMovableLocationsIgnoringCheck().contains(loc);
+    }
+    public boolean canMove(Piece p, int x, int y)
+    {
+        return p.getMovableLocationsIgnoringCheck().contains(coordsToLocation(x, y));
+    }
 }
