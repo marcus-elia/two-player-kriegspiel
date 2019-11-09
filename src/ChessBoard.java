@@ -6,6 +6,8 @@ public class ChessBoard
 {
 
     private Piece[][] pieces;
+    private ArrayList<Piece> whitePieces;
+    private ArrayList<Piece> blackPieces;
     private GameManager manager;
     private int squareWidth; // the width of the chess board squares
     private int boardSize;   // the size of the entire board
@@ -16,6 +18,8 @@ public class ChessBoard
     public ChessBoard(GameManager manager) throws IOException
     {
         pieces = new Piece[8][8];
+        whitePieces = new ArrayList<Piece>();
+        blackPieces = new ArrayList<Piece>();
         this.manager = manager;
         this.setSquareWidth();
         this.boardSize = 8*this.squareWidth;
@@ -133,6 +137,15 @@ public class ChessBoard
         // Kings
         this.pieces[4][0] = new King(Team.Black, this, coordsToLocation(4, 0));
         this.pieces[4][7] = new King(Team.White, this, coordsToLocation(4, 7));
+
+        // Add the pieces to their teams
+        for(int j = 0; j < 7; j++)
+        {
+            blackPieces.add(pieces[0][j]);
+            blackPieces.add(pieces[1][j]);
+            whitePieces.add(pieces[6][j]);
+            whitePieces.add(pieces[7][j]);
+        }
     }
 
     public GameManager getManager()
@@ -142,6 +155,14 @@ public class ChessBoard
     public int getBoardSize()
     {
         return this.boardSize;
+    }
+    public ArrayList<Piece> getWhitePieces()
+    {
+        return this.whitePieces;
+    }
+    public ArrayList<Piece> getBlackPieces()
+    {
+        return this.blackPieces;
     }
 
     public void selectPiece(int mx, int my)
