@@ -220,6 +220,12 @@ public class ChessBoard
         return pieces[x][y] == null;
     }
 
+    // ==================================
+    //
+    //       Functions to help
+    //      with game management
+    //
+    // ==================================
     public boolean containsTeammate(Team team, int loc)
     {
         int x = locationToCoords(loc)[0];
@@ -268,6 +274,7 @@ public class ChessBoard
             return this.blackPieces.contains(pieces[x][y]);
         }
     }
+    // If the piece can move to the given location on the board
     public boolean canMove(Piece p, int loc)
     {
         return p.getMovableLocationsIgnoringCheck().contains(loc);
@@ -302,5 +309,47 @@ public class ChessBoard
         this.pieces[prevX][prevY] = null;
 
         p.setLocation(loc);
+    }
+
+    /*
+    Function: isInCheck()
+    Requires: A Team (White or Black) and a 2D Piece array representing a
+              hypothetical game position.  The array could be the current
+              board to determine if the king is in check or checkmate, or
+              a determining if a possible move is legal
+    Modifies: N/A
+    Effects: Returns true if an opponent can attack the king in the given
+             board, false otherwise
+     */
+    public boolean isInCheck(Team team, Piece[][] theBoard)
+    {
+        // Find the relevant king's location
+        int kingLoc = -1;
+        for(int i = 0; i < 8; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                if(theBoard[i][j].getTeam() == team && theBoard[i][j].getPieceType() == PieceType.King)
+                {
+                    kingLoc = coordsToLocation(i, j);
+                }
+            }
+        }
+
+        // Check if any opponent can attack it
+        for(int i = 0; i < 8; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                if(theBoard[i][j] != null && theBoard[i][j].getTeam() != team)
+                {
+                    if(theBoard[i][j].getAttackableNonTeammateLocations().contains(kingLoc))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }
