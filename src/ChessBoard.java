@@ -279,8 +279,21 @@ public class ChessBoard
 
     public void move(Piece p, int loc)
     {
+        // If we shouldn't be allowed to move there, raise an exception
+        if(this.containsTeammate(p.getTeam(), loc))
+        {
+            throw new RuntimeException("Tried to move a Piece where a teammate is");
+        }
         int x = locationToCoords(loc)[0];
         int y = locationToCoords(loc)[1];
+
+        // If we are capturing an opponent
+        if(this.containsEnemy(p.getTeam(), loc))
+        {
+            System.out.println(this.manager.teamToString(p.getTeam()) + " has moved and captured on");
+            blackPieces.remove(pieces[x][y]);
+        }
+
         this.pieces[x][y] = p;
 
         int prevLoc = p.getLocation();
