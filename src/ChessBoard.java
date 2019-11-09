@@ -86,7 +86,7 @@ public class ChessBoard
 
         if(this.isUpdating)
         {
-            g2d.setColor(new Color(255, 255, 255, .4f));
+            g2d.setColor(new Color(1, 1, 1, .4f));
             g2d.fillRect(0, 0, this.manager.getWindowWidth(), this.manager.getWindowHeight());
         }
     }
