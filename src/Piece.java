@@ -72,7 +72,30 @@ public abstract class Piece
         this.location = loc;
     }
 
+
+    // ======================================
+    //
+    //         Movement Functions
+    //
+    // =====================================
     public abstract ArrayList<Integer> getAttackableLocations();
+
+    public ArrayList<Integer> getAttackableNonTeammateLocations()
+    {
+        ArrayList<Integer> locs = new ArrayList<Integer>();
+        ArrayList<Integer> allLocs = this.getAttackableLocations();
+
+        // iterate through all attackable locations. If there is not a
+        // teammate there, add it to the list
+        for(int loc: allLocs)
+        {
+            if(!this.board.containsTeammate(this.team, loc))
+            {
+                locs.add(loc);
+            }
+        }
+        return locs;
+    }
 
     // Convert between 2D coords and an int between 0 and 63
     public int coordsToLocation(int x, int y)
