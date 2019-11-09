@@ -79,6 +79,11 @@ public abstract class Piece
         return this.movableLocations;
     }
 
+    public boolean canMove()
+    {
+        return this.movableLocations.isEmpty();
+    }
+
     // ==============================
     //
     //            Setters
