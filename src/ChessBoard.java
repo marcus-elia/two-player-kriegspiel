@@ -215,7 +215,7 @@ public class ChessBoard
     {
         return this.selectedYCoord;
     }
-    private boolean isUpdating()
+    public boolean isUpdating()
     {
         return this.isUpdating;
     }
