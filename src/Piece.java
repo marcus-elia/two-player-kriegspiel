@@ -97,6 +97,8 @@ public abstract class Piece
         return locs;
     }
 
+    public abstract ArrayList<Integer> getMovableLocationsIgnoringCheck();
+
     // Convert between 2D coords and an int between 0 and 63
     public int coordsToLocation(int x, int y)
     {
