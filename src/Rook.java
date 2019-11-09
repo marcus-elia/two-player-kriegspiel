@@ -65,4 +65,10 @@ public class Rook extends Piece
         }
         return locs;
     }
+
+    @Override
+    public ArrayList<Integer> getMovableLocationsIgnoringCheck()
+    {
+        return this.getAttackableNonTeammateLocations();
+    }
 }

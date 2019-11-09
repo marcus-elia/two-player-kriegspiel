@@ -55,4 +55,10 @@ public class King extends Piece
         }
         return locs;
     }
+
+    @Override
+    public ArrayList<Integer> getMovableLocationsIgnoringCheck()
+    {
+        return this.getAttackableNonTeammateLocations();
+    }
 }

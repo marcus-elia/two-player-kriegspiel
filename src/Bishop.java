@@ -73,4 +73,10 @@ public class Bishop extends Piece
         }
         return locs;
     }
+
+    @Override
+    public ArrayList<Integer> getMovableLocationsIgnoringCheck()
+    {
+        return this.getAttackableNonTeammateLocations();
+    }
 }
