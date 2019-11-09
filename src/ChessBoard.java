@@ -37,6 +37,8 @@ public class ChessBoard
         this.boardSize = 8*this.squareWidth;
 
         this.isUpdating = true;
+        this.updatePieces();
+        this.isUpdating = false;
 
     }
 
@@ -80,6 +82,12 @@ public class ChessBoard
             g2d.drawRect(this.selectedXCoord*this.squareWidth, this.selectedYCoord*this.squareWidth,
                     this.squareWidth, this.squareWidth);
             highlightMovableLocations(g2d);
+        }
+
+        if(this.isUpdating)
+        {
+            g2d.setColor(new Color(255, 255, 255, .4f));
+            g2d.fillRect(0, 0, this.manager.getWindowWidth(), this.manager.getWindowHeight());
         }
     }
 
@@ -349,6 +357,8 @@ public class ChessBoard
 
     public void move(Piece p, int loc)
     {
+        this.isUpdating = true;
+
         // If we shouldn't be allowed to move there, raise an exception
         if(this.containsTeammate(p.getTeam(), loc))
         {
@@ -380,6 +390,8 @@ public class ChessBoard
         {
             System.out.println("The " + this.manager.teamToString(this.getOtherTeam(p.getTeam())) + " is in check.");
         }
+
+        this.isUpdating = false;
     }
 
     /*
@@ -447,6 +459,21 @@ public class ChessBoard
         }
     }
 
+    // This makes all of the pieces update their ArrayLists for locations
+    public void updatePiecesForCheck()
+    {
+        for(int i = 0; i < 8; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                if(pieces[i][j] != null)
+                {
+                    pieces[i][j].updateForCheck();
+                }
+            }
+        }
+    }
+
     // Returns a copied version of this board with p moved to loc
     public Piece[][] copyBoardMove(Piece p, int loc)
     {
@@ -487,7 +514,7 @@ public class ChessBoard
         this.setPieceAtLocation(p, loc);
         p.setLocation(loc);
         this.setPieceAtLocation(null, prevLoc);
-        this.updatePieces();
+        this.updatePiecesForCheck();
 
         // Look for check
         boolean isIllegal = this.isInCheck(team, this.pieces);
@@ -496,7 +523,7 @@ public class ChessBoard
         this.setPieceAtLocation(p, prevLoc);
         p.setLocation(prevLoc);
         this.setPieceAtLocation(prevPiece, loc);
-        this.updatePieces();
+        this.updatePiecesForCheck();
 
         return isIllegal;
     }
