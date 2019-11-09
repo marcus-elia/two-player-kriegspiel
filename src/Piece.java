@@ -12,10 +12,16 @@ public abstract class Piece
     protected ChessBoard board;
     protected BufferedImage image;
 
+    protected ArrayList<Integer> attackableLocations;
+    protected ArrayList<Integer> attackableNonTeammateLocations;
+    protected ArrayList<Integer> movableLocationsIgnoringCheck;
+    protected ArrayList<Integer> movableLocations;
+
     // An int between 0 and 63 representing the position on the board
     protected int location;
 
-    public Piece(Team team, ChessBoard board, int location) throws IOException {
+    public Piece(Team team, ChessBoard board, int location) throws IOException
+    {
         this.team = team;
         this.board = board;
         this.location = location;
@@ -56,6 +62,22 @@ public abstract class Piece
     {
         return this.location;
     }
+    public ArrayList<Integer> getAttackableLocations()
+    {
+        return this.attackableLocations;
+    }
+    public ArrayList<Integer> getAttackableNonTeammateLocations()
+    {
+        return this.attackableNonTeammateLocations;
+    }
+    public ArrayList<Integer> getMovableLocationsIgnoringCheck()
+    {
+        return this.movableLocationsIgnoringCheck;
+    }
+    public ArrayList<Integer> getMovableLocations()
+    {
+        return this.movableLocations;
+    }
 
     // ==============================
     //
@@ -78,9 +100,18 @@ public abstract class Piece
     //         Movement Functions
     //
     // =====================================
-    public abstract ArrayList<Integer> getAttackableLocations();
 
-    public ArrayList<Integer> getAttackableNonTeammateLocations()
+    public void update()
+    {
+        this.setAttackableLocations();
+        this.setAttackableNonTeammateLocations();
+        this.setMovableLocationsIgnoringCheck();
+        this.setMovableLocations();
+    }
+
+    public abstract void setAttackableLocations();
+
+    public void setAttackableNonTeammateLocations()
     {
         ArrayList<Integer> locs = new ArrayList<Integer>();
         ArrayList<Integer> allLocs = this.getAttackableLocations();
@@ -94,12 +125,12 @@ public abstract class Piece
                 locs.add(loc);
             }
         }
-        return locs;
+        this.attackableNonTeammateLocations = locs;
     }
 
-    public abstract ArrayList<Integer> getMovableLocationsIgnoringCheck();
+    public abstract void setMovableLocationsIgnoringCheck();
 
-    public ArrayList<Integer> getMovableLocations()
+    public void setMovableLocations()
     {
         ArrayList<Integer> locs = new ArrayList<Integer>();
         ArrayList<Integer> allLocs = this.getMovableLocationsIgnoringCheck();
@@ -113,7 +144,7 @@ public abstract class Piece
                 locs.add(loc);
             }
         }
-        return locs;
+        this.movableLocations = locs;
     }
 
     // Convert between 2D coords and an int between 0 and 63
