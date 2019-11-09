@@ -65,14 +65,14 @@ public class ChessBoard
             g2d.setStroke(new BasicStroke(5));
             g2d.drawRect(this.selectedXCoord*this.squareWidth, this.selectedYCoord*this.squareWidth,
                     this.squareWidth, this.squareWidth);
-            highlightAttackableSquares(g2d);
+            highlightMovableLocationsIgnoringCheck(g2d);
         }
     }
 
-    public void highlightAttackableSquares(Graphics2D g2d)
+    public void highlightMovableLocationsIgnoringCheck(Graphics2D g2d)
     {
         Piece p = this.pieces[selectedXCoord][selectedYCoord];
-        ArrayList<Integer> squaresToHighlight = p.getAttackableLocations();
+        ArrayList<Integer> squaresToHighlight = p.getMovableLocationsIgnoringCheck();
         for(int loc : squaresToHighlight)
         {
             int x = locationToCoords(loc)[0];
@@ -139,12 +139,12 @@ public class ChessBoard
         this.pieces[4][7] = new King(Team.White, this, coordsToLocation(4, 7));
 
         // Add the pieces to their teams
-        for(int j = 0; j < 7; j++)
+        for(int i = 0; i < 8; i++)
         {
-            blackPieces.add(pieces[0][j]);
-            blackPieces.add(pieces[1][j]);
-            whitePieces.add(pieces[6][j]);
-            whitePieces.add(pieces[7][j]);
+            blackPieces.add(pieces[i][0]);
+            blackPieces.add(pieces[i][1]);
+            whitePieces.add(pieces[i][6]);
+            whitePieces.add(pieces[i][7]);
         }
     }
 
