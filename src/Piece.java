@@ -101,12 +101,21 @@ public abstract class Piece
     //
     // =====================================
 
+    // Update everything because a piece has moved
     public void update()
     {
         this.setAttackableLocations();
         this.setAttackableNonTeammateLocations();
         this.setMovableLocationsIgnoringCheck();
         this.setMovableLocations();
+    }
+
+    // Update some things when looking for check
+    public void updateForCheck()
+    {
+        this.setAttackableLocations();
+        this.setAttackableNonTeammateLocations();
+        this.setMovableLocationsIgnoringCheck();
     }
 
     public abstract void setAttackableLocations();
