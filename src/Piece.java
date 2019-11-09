@@ -99,6 +99,23 @@ public abstract class Piece
 
     public abstract ArrayList<Integer> getMovableLocationsIgnoringCheck();
 
+    public ArrayList<Integer> getMovableLocations()
+    {
+        ArrayList<Integer> locs = new ArrayList<Integer>();
+        ArrayList<Integer> allLocs = this.getMovableLocationsIgnoringCheck();
+
+        // Iterate through all possible locations. If moving there wouldn't put us
+        // in check, add that location to the list
+        for(int loc : allLocs)
+        {
+            if(!this.board.wouldPutSelfInCheck(this.team, this, loc))
+            {
+                locs.add(loc);
+            }
+        }
+        return locs;
+    }
+
     // Convert between 2D coords and an int between 0 and 63
     public int coordsToLocation(int x, int y)
     {
