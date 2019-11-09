@@ -7,6 +7,7 @@ public class GameManager
     private int windowWidth;
     private int windowHeight;
     private boolean isPieceSelected; // does the user have a piece selected
+    private Team whoseTurn;
 
     public GameManager(int width, int height) throws IOException
     {
@@ -14,6 +15,7 @@ public class GameManager
         this.windowHeight = height;
         this.board = new ChessBoard(this);
         this.isPieceSelected = false;
+        this.whoseTurn = Team.White;
     }
 
     public void tick()
@@ -46,6 +48,10 @@ public class GameManager
     public boolean getIsPieceSelected()
     {
         return this.isPieceSelected;
+    }
+    public Team getWhoseTurn()
+    {
+        return this.whoseTurn;
     }
 
 
@@ -101,11 +107,22 @@ public class GameManager
         if(mx <= this.board.getBoardSize() && my <= this.board.getBoardSize())
         {
             int loc = this.board.getLocationFromCoordinates(mx, my);
+
+            // If no piece is selected
             if(!this.getIsPieceSelected())
             {
+                // If the click is on a piece
                 if(!this.board.isEmpty(loc))
                 {
-                    this.selectPiece(mx, my);
+                    // If they click on their own piece, select it
+                    if(this.board.containsTeammate(this.whoseTurn, loc))
+                    {
+                        this.selectPiece(mx, my);
+                    }
+                    else // If they click on the other team's piece
+                    {
+                        System.out.println("That is not your piece.");
+                    }
                 }
                 else
                 {
@@ -114,6 +131,7 @@ public class GameManager
             }
             else
             {
+                // If they click on the selected piece, unselect it
                 if(loc == this.board.coordsToLocation(this.board.getSelectedXCoord(), this.board.getSelectedYCoord()))
                 {
                     this.unselectPiece();
@@ -122,6 +140,7 @@ public class GameManager
                 {
                     this.board.move(this.board.getSelectedPiece(), loc);
                     this.unselectPiece();
+                    this.switchTurn();
                 }
                 else
                 {
@@ -140,5 +159,17 @@ public class GameManager
     public void unselectPiece()
     {
         this.isPieceSelected = false;
+    }
+
+    public void switchTurn()
+    {
+        if(this.whoseTurn == Team.White)
+        {
+            this.whoseTurn = Team.Black;
+        }
+        else
+        {
+            this.whoseTurn = Team.White;
+        }
     }
 }
