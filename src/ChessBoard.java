@@ -18,6 +18,8 @@ public class ChessBoard
     private int selectedXCoord;
     private int selectedYCoord;
 
+    private boolean isUpdating;
+
     public ChessBoard(GameManager manager) throws IOException
     {
         this.whitePieces = new ArrayList<Piece>();
@@ -33,6 +35,8 @@ public class ChessBoard
 
         this.setSquareWidth();
         this.boardSize = 8*this.squareWidth;
+
+        this.isUpdating = true;
 
     }
 
@@ -202,6 +206,10 @@ public class ChessBoard
     public int getSelectedYCoord()
     {
         return this.selectedYCoord;
+    }
+    private boolean isUpdating()
+    {
+        return this.isUpdating;
     }
     public Piece getPieceAtLocation(int loc)
     {
