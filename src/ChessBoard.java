@@ -164,6 +164,27 @@ public class ChessBoard
     {
         return this.blackPieces;
     }
+    public Piece getSelectedPiece()
+    {
+        return this.pieces[selectedXCoord][selectedYCoord];
+    }
+    public int getSelectedXCoord()
+    {
+        return this.selectedXCoord;
+    }
+    public int getSelectedYCoord()
+    {
+        return this.selectedYCoord;
+    }
+
+    // Given a mouse click happened on the board, return the square
+    // that was clicked
+    public int getLocationFromCoordinates(int mx, int my)
+    {
+        int x = mx / this.squareWidth;
+        int y = my / this.squareWidth;
+        return coordsToLocation(x, y);
+    }
 
     public void selectPiece(int mx, int my)
     {
@@ -173,6 +194,8 @@ public class ChessBoard
             this.selectedYCoord = my / this.squareWidth;
         }
     }
+
+
 
     // Convert between 2D coords and an int between 0 and 63
     public int coordsToLocation(int x, int y)
