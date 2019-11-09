@@ -217,7 +217,17 @@ public class ChessBoard
         this.pieces[x][y] = p;
     }
 
-
+    public Team getOtherTeam(Team team)
+    {
+        if(team == Team.White)
+        {
+            return Team.Black;
+        }
+        else
+        {
+            return Team.White;
+        }
+    }
 
 
     // Given a mouse click happened on the board, return the square
@@ -355,6 +365,12 @@ public class ChessBoard
 
         p.setLocation(loc);
         this.updateRenderableBoard();
+
+        // Print check message
+        if(this.isInCheck(this.getOtherTeam(p.getTeam()), this.pieces))
+        {
+            System.out.println("The " + this.manager.teamToString(this.getOtherTeam(p.getTeam())) + " is in check.");
+        }
     }
 
     /*
