@@ -100,13 +100,33 @@ public class GameManager
         // If the click is on the board
         if(mx <= this.board.getBoardSize() && my <= this.board.getBoardSize())
         {
+            int loc = this.board.getLocationFromCoordinates(mx, my);
             if(!this.getIsPieceSelected())
             {
-                this.selectPiece(mx, my);
+                if(!this.board.isEmpty(loc))
+                {
+                    this.selectPiece(mx, my);
+                }
+                else
+                {
+                    System.out.println("No piece there");
+                }
             }
             else
             {
-                this.unselectPiece();
+                if(loc == this.board.coordsToLocation(this.board.getSelectedXCoord(), this.board.getSelectedYCoord()))
+                {
+                    this.unselectPiece();
+                }
+                else if(this.board.canMove(this.board.getSelectedPiece(), loc))
+                {
+                    this.board.move(this.board.getSelectedPiece(), loc);
+                    this.unselectPiece();
+                }
+                else
+                {
+                    System.out.println("Can't move there");
+                }
             }
         }
     }
