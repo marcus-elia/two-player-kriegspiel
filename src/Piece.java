@@ -81,7 +81,7 @@ public abstract class Piece
 
     public boolean canMove()
     {
-        return this.movableLocations.isEmpty();
+        return !this.movableLocations.isEmpty();
     }
 
     // ==============================
