@@ -199,6 +199,10 @@ public class ChessBoard
     {
         return this.boardSize;
     }
+    public Piece[][] getPieces()
+    {
+        return this.pieces;
+    }
     public ArrayList<Piece> getWhitePieces()
     {
         return this.whitePieces;
