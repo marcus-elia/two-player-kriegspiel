@@ -84,11 +84,11 @@ public class ChessBoard
             highlightMovableLocations(g2d);
         }
 
-        if(this.isUpdating)
+        /*if(this.isUpdating)
         {
-            g2d.setColor(new Color(1, 1, 1, .4f));
+            g2d.setColor(new Color(1, 1, 1, .1f));
             g2d.fillRect(0, 0, this.manager.getWindowWidth(), this.manager.getWindowHeight());
-        }
+        }*/
     }
 
     public void highlightMovableLocations(Graphics2D g2d)
