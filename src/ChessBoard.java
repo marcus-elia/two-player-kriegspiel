@@ -5,7 +5,10 @@ import java.util.ArrayList;
 public class ChessBoard
 {
 
-    private Piece[][] pieces;
+    private Piece[][] pieces;   // where the pieces are
+    private Piece[][] renderableBoard;  // where the game is showing the pieces are
+                                        // (this is different when the game is calculating
+                                        // if a move is legal)
     private ArrayList<Piece> whitePieces;
     private ArrayList<Piece> blackPieces;
     private GameManager manager;
@@ -17,13 +20,15 @@ public class ChessBoard
 
     public ChessBoard(GameManager manager) throws IOException
     {
-        pieces = new Piece[8][8];
-        whitePieces = new ArrayList<Piece>();
-        blackPieces = new ArrayList<Piece>();
+        this.pieces = new Piece[8][8];
+        this.renderableBoard = new Piece[8][8];
+        this.whitePieces = new ArrayList<Piece>();
+        this.blackPieces = new ArrayList<Piece>();
         this.manager = manager;
         this.setSquareWidth();
         this.boardSize = 8*this.squareWidth;
         this.fillBoard();
+        this.updateRenderableBoard();
     }
 
     public void tick()
@@ -50,9 +55,9 @@ public class ChessBoard
                 g2d.fillRect(i*this.squareWidth, j*this.squareWidth, this.squareWidth, this.squareWidth);
 
                 // fill in the piece if there is a piece there
-                if(pieces[i][j] != null)
+                if(renderableBoard[i][j] != null)
                 {
-                    g2d.drawImage(pieces[i][j].getImage(), i*this.squareWidth, j*this.squareWidth,
+                    g2d.drawImage(renderableBoard[i][j].getImage(), i*this.squareWidth, j*this.squareWidth,
                             this.squareWidth, this.squareWidth, null);
                 }
             }
@@ -71,7 +76,7 @@ public class ChessBoard
 
     public void highlightMovableLocations(Graphics2D g2d)
     {
-        Piece p = this.pieces[selectedXCoord][selectedYCoord];
+        Piece p = this.renderableBoard[selectedXCoord][selectedYCoord];
         ArrayList<Integer> squaresToHighlight = p.getMovableLocations();
         for(int loc : squaresToHighlight)
         {
@@ -145,6 +150,18 @@ public class ChessBoard
             blackPieces.add(pieces[i][1]);
             whitePieces.add(pieces[i][6]);
             whitePieces.add(pieces[i][7]);
+        }
+    }
+
+    // Make the renderableBoard agree with pieces, the actual board
+    public void updateRenderableBoard()
+    {
+        for(int i = 0; i < 8; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                this.renderableBoard[i][j] = this.pieces[i][j];
+            }
         }
     }
 
@@ -319,6 +336,7 @@ public class ChessBoard
         this.pieces[prevX][prevY] = null;
 
         p.setLocation(loc);
+        this.updateRenderableBoard();
     }
 
     /*
@@ -390,7 +408,7 @@ public class ChessBoard
     }
 
     // Returns true if moving p to loc would put the team in check
-    public boolean wouldPutSelfInCheck(Team team, Piece p, int loc)
+    /*public boolean wouldPutSelfInCheck(Team team, Piece p, int loc)
     {
         int prevLoc = p.getLocation(); // store this to move p back when finished
 
@@ -399,5 +417,7 @@ public class ChessBoard
 
         p.setLocation(prevLoc); // Move p back to where it was
         return isIllegal;
-    }
+    }*/
+
+    public boolean wouldPutSelfInCheck
 }
