@@ -403,7 +403,7 @@ public class ChessBoard
         // If we are capturing an opponent
         if(this.containsEnemy(p.getTeam(), loc))
         {
-            System.out.println(this.manager.teamToString(p.getTeam()) + " has moved and captured on");
+            System.out.println(this.manager.teamToString(p.getTeam()) + " has moved and captured on " + locationToString(loc));
             if(p.getTeam() == Team.White)
             {
                 blackPieces.remove(pieces[x][y]);
@@ -586,5 +586,17 @@ public class ChessBoard
         this.updatePiecesForCheck();
 
         return isIllegal;
+    }
+
+    public String coordsToString(int x, int y)
+    {
+        String s = "";
+        s += (char)(x+97);
+        s += (8-y);
+        return s;
+    }
+    public String locationToString(int loc)
+    {
+        return coordsToString(locationToCoords(loc)[0], locationToCoords(loc)[1]);
     }
 }
