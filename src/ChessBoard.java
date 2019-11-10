@@ -65,8 +65,9 @@ public class ChessBoard
                 }
                 g2d.fillRect(i*this.squareWidth, j*this.squareWidth, this.squareWidth, this.squareWidth);
 
-                // fill in the piece if there is a piece there
-                if(renderableBoard[i][j] != null)
+                // fill in the piece if there is a piece there and the piece belongs to
+                // whoever is moving
+                if(renderableBoard[i][j] != null && renderableBoard[i][j].getTeam() == this.manager.getWhoseTurn())
                 {
                     g2d.drawImage(renderableBoard[i][j].getImage(), i*this.squareWidth, j*this.squareWidth,
                             this.squareWidth, this.squareWidth, null);
