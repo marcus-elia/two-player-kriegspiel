@@ -10,6 +10,7 @@ public class GameManager
     private boolean isPieceSelected; // does the user have a piece selected
     private Team whoseTurn;
     private boolean gameIsActive;
+    private boolean isBetweenTurns;
 
     public GameManager(int width, int height) throws IOException
     {
@@ -19,6 +20,7 @@ public class GameManager
         this.isPieceSelected = false;
         this.whoseTurn = Team.White;
         this.gameIsActive = true;
+        this.isBetweenTurns = false;
     }
 
     public void tick()
@@ -55,6 +57,10 @@ public class GameManager
     public Team getWhoseTurn()
     {
         return this.whoseTurn;
+    }
+    public boolean getIsBetweenTurns()
+    {
+        return this.isBetweenTurns;
     }
 
 
