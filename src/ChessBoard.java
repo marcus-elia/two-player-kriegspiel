@@ -84,6 +84,7 @@ public class ChessBoard
             highlightMovableLocations(g2d);
         }
 
+        this.drawLabels(g2d);
         /*if(this.isUpdating)
         {
             g2d.setColor(new Color(1, 1, 1, .1f));
@@ -108,6 +109,31 @@ public class ChessBoard
             g2d.drawRect(x*this.squareWidth, y*this.squareWidth,
                     this.squareWidth, this.squareWidth);
         }
+    }
+
+    // Make the a,b,...,h and 1,2,...,8
+    public void drawLabels(Graphics2D g2d)
+    {
+        g2d.setFont(new Font("Courier", Font.PLAIN, 24));
+        g2d.setColor(Color.WHITE);
+
+        String curChar;
+        int pixelLength;
+        for(int i = 1; i < 9; i++)
+        {
+            // Draw the letters along the bottom edge
+            curChar = "";
+            curChar += (char)(i + 96);
+            pixelLength = g2d.getFontMetrics().stringWidth(curChar); // the number of pixels the string is long
+            g2d.drawString(curChar, (2*i-1)*this.squareWidth/2 - pixelLength/2, this.boardSize + 16);
+
+            // Draw the numbers on the right edge
+            curChar = Integer.toString(i);
+            pixelLength = g2d.getFontMetrics().stringWidth(curChar); // the number of pixels the string is long
+            g2d.drawString(curChar, this.boardSize + pixelLength/2,
+                    this.boardSize - (2*i-1)*this.squareWidth/2 + 8);
+        }
+
     }
 
     // ==========================================
