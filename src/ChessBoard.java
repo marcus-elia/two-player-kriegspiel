@@ -101,18 +101,18 @@ public class ChessBoard
         {
             if(this.fadeAlpha < 1.0)
             {
-                this.fadeAlpha += 0.01;
+                this.fadeAlpha = (float) Math.min(this.fadeAlpha + 0.005, 1.0);
             }
         }
         else
         {
             if(this.fadeAlpha > 0.0)
             {
-                this.fadeAlpha -= 0.01;
+                this.fadeAlpha = (float) Math.max(this.fadeAlpha - 0.005, 0.0);
             }
         }
-        g2d.setColor(new Color(1f,1f,1f, fadeAlpha));
-        g2d.fillRect(0,0,this.manager.getWindowWidth(), this.manager.getWindowHeight());
+        g2d.setColor(new Color(.8f,.8f,.8f, fadeAlpha));
+        g2d.fillRect(0,0,this.manager.getWindowWidth() + 20, this.manager.getWindowHeight() + 20);
     }
 
     public void highlightMovableLocations(Graphics2D g2d)
