@@ -20,6 +20,8 @@ public class ChessBoard
 
     private boolean isUpdating;
 
+    private float fadeAlpha; // for covering the screen when switching turns
+
     public ChessBoard(GameManager manager) throws IOException
     {
         this.whitePieces = new ArrayList<Piece>();
@@ -39,6 +41,8 @@ public class ChessBoard
         this.isUpdating = true;
         this.updatePieces();
         this.isUpdating = false;
+
+        this.fadeAlpha = 0;
 
     }
 
@@ -91,6 +95,24 @@ public class ChessBoard
             g2d.setColor(new Color(1, 1, 1, .1f));
             g2d.fillRect(0, 0, this.manager.getWindowWidth(), this.manager.getWindowHeight());
         }*/
+
+        // draw a white rectangle over the board during transitions
+        if(this.manager.getIsBetweenTurns())
+        {
+            if(this.fadeAlpha < 1.0)
+            {
+                this.fadeAlpha += 0.01;
+            }
+        }
+        else
+        {
+            if(this.fadeAlpha > 0.0)
+            {
+                this.fadeAlpha -= 0.01;
+            }
+        }
+        g2d.setColor(new Color(1f,1f,1f, fadeAlpha));
+        g2d.fillRect(0,0,this.manager.getWindowWidth(), this.manager.getWindowHeight());
     }
 
     public void highlightMovableLocations(Graphics2D g2d)
