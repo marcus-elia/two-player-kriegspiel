@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -110,7 +111,8 @@ public class GameManager
     //
     // ======================================
 
-    public void reactToClick(int mx, int my) throws IOException {
+    public void reactToClick(int mx, int my) throws IOException
+    {
         if(this.board.isUpdating() || !this.gameIsActive)
         {
             return;
@@ -149,11 +151,19 @@ public class GameManager
                 {
                     this.unselectPiece();
                 }
+                // If they click a valid move, make the move
                 else if(this.board.canMove(this.board.getSelectedPiece(), loc))
                 {
                     this.board.move(this.board.getSelectedPiece(), loc);
                     this.unselectPiece();
+                    this.isBetweenTurns = true;
+                    JOptionPane.showMessageDialog(null, "Your move is complete. " +
+                            "Call the other player over");
+
+                    JOptionPane.showMessageDialog(null, "Welcome back, Player. " +
+                            "Press ok when the other player is gone.");
                     this.switchTurn();
+                    this.isBetweenTurns = false;
                 }
                 else
                 {
