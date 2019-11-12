@@ -487,37 +487,53 @@ public class ChessBoard
     Effects: Returns true if an opponent can attack the king in the given
              board, false otherwise
      */
-    public boolean isInCheck(Team team, Piece[][] theBoard)
+    public boolean isInCheck(Team team, Piece[][] board)
     {
-        // Find the relevant king's location
-        int kingLoc = -1;
+        return this.getCheckingPieces(team, board).size() > 0;
+    }
+
+    public int getKingLoc(Team team, Piece[][] board)
+    {
         for(int i = 0; i < 8; i++)
         {
             for(int j = 0; j < 8; j++)
             {
-                if(theBoard[i][j] != null &&
-                        theBoard[i][j].getTeam() == team && theBoard[i][j].getPieceType() == PieceType.King)
+                if(board[i][j] != null &&
+                        board[i][j].getTeam() == team && board[i][j].getPieceType() == PieceType.King)
                 {
-                    kingLoc = coordsToLocation(i, j);
+                    return coordsToLocation(i, j);
                 }
             }
         }
+        return -1;
+    }
+
+    public ArrayList<Piece> getCheckingPieces(Team team, Piece[][] board)
+    {
+        ArrayList<Piece> checkingPieces = new ArrayList<Piece>();
+        // Find the relevant king's location
+        int kingLoc = this.getKingLoc(team, board);
 
         // Check if any opponent can attack it
         for(int i = 0; i < 8; i++)
         {
             for(int j = 0; j < 8; j++)
             {
-                if(theBoard[i][j] != null && theBoard[i][j].getTeam() != team)
+                if(board[i][j] != null && board[i][j].getTeam() != team)
                 {
-                    if(theBoard[i][j].getAttackableNonTeammateLocations().contains(kingLoc))
+                    if(board[i][j].getAttackableNonTeammateLocations().contains(kingLoc))
                     {
-                        return true;
+                        checkingPieces.add(board[i][j]);
                     }
                 }
             }
         }
-        return false;
+        return checkingPieces;
+    }
+
+    public String getCheckDirections(Team team, Piece[][] board)
+    {
+        String outputString = "The " + this.manager.teamToString(team) + " king is in check from the ";
     }
 
     public void setBoardLocation(Piece[][] board, Piece p, int loc)
