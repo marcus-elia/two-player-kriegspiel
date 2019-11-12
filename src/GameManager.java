@@ -99,6 +99,7 @@ public class GameManager
         }
     }
 
+    // Convert the Team enum type into its corresponding string
     public String teamToString(Team t)
     {
         switch(t)
@@ -107,6 +108,20 @@ public class GameManager
                 return "black";
             case White :
                 return "white";
+            default :
+                return "neutral";
+        }
+    }
+
+    // The capitalized version
+    public String teamToStringC(Team t)
+    {
+        switch(t)
+        {
+            case Black :
+                return "Black";
+            case White :
+                return "White";
             default :
                 return "neutral";
         }
@@ -137,6 +152,7 @@ public class GameManager
             return this.blackName;
         }
     }
+    // Return Team.White if it's black's turn and vice versa
     public String otherPlayersName()
     {
         if(this.whoseTurn == Team.White)
