@@ -412,8 +412,11 @@ public class ChessBoard
         return p.getMovableLocations().contains(coordsToLocation(x, y));
     }
 
-    public void move(Piece p, int loc) throws IOException {
+    public String move(Piece p, int loc) throws IOException
+    {
         this.isUpdating = true;
+
+        String statusString = "";
 
         // If we shouldn't be allowed to move there, raise an exception
         if(this.containsTeammate(p.getTeam(), loc))
@@ -426,7 +429,8 @@ public class ChessBoard
         // If we are capturing an opponent
         if(this.containsEnemy(p.getTeam(), loc))
         {
-            System.out.println(this.manager.teamToString(p.getTeam()) + " has moved and captured on " + locationToString(loc));
+            statusString += this.manager.teamToStringC(p.getTeam()) + " has moved and captured on "
+                    + locationToString(loc) + ".\n";
             if(p.getTeam() == Team.White)
             {
                 blackPieces.remove(pieces[x][y]);
@@ -435,7 +439,10 @@ public class ChessBoard
             {
                 whitePieces.remove(pieces[x][y]);
             }
-
+        }
+        else
+        {
+            statusString += this.manager.teamToStringC(p.getTeam()) + " has moved.\n";
         }
 
         this.pieces[x][y] = p;
@@ -471,10 +478,12 @@ public class ChessBoard
         // Print check message
         if(this.isInCheck(this.getOtherTeam(p.getTeam()), this.pieces))
         {
-            System.out.println(this.getCheckDirections(this.getOtherTeam(p.getTeam()), this.pieces));
+            statusString += this.getCheckDirections(this.getOtherTeam(p.getTeam()), this.pieces) + "\n";
         }
 
         this.isUpdating = false;
+
+        return statusString;
     }
 
     /*
