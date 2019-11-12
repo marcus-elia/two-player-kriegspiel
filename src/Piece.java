@@ -78,6 +78,14 @@ public abstract class Piece
     {
         return this.movableLocations;
     }
+    public int getX()
+    {
+        return locationToCoords(this.location)[0];
+    }
+    public int getY()
+    {
+        return locationToCoords(this.location)[1];
+    }
 
     public boolean canMove()
     {
