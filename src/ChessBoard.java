@@ -533,7 +533,71 @@ public class ChessBoard
 
     public String getCheckDirections(Team team, Piece[][] board)
     {
-        String outputString = "The " + this.manager.teamToString(team) + " king is in check from the ";
+        // Get all pieces checking the king
+        ArrayList<Piece> checkingPieces = this.getCheckingPieces(team, board);
+
+        // where the king is
+        int kingLoc = this.getKingLoc(team, board);
+        int kingX = this.locationToCoords(kingLoc)[0];
+        int kingY = this.locationToCoords(kingLoc)[1];
+
+        // If we made a mistake and called this function when the king is not in check
+        if(checkingPieces.size() == 0)
+        {
+            return "The " + this.manager.teamToString(team) + " king is not in check.";
+        }
+        String outputString = "The " + this.manager.teamToString(team) + " king is in check from ";
+
+        // The king is possibly in check from 2 different sources
+        for(int i = 0; i < checkingPieces.size(); i++)
+        {
+            if(i == 1)
+            {
+                outputString += " and from ";
+            }
+            int otherLoc = checkingPieces.get(i).getLocation();
+
+            // Figure out where the check is coming from
+            if(checkingPieces.get(i).getPieceType() == PieceType.Knight)
+            {
+                outputString += "a knight";
+            }
+            else if(checkingPieces.get(i).getX() == kingX)
+            {
+                outputString += "the rank";
+            }
+            else if(checkingPieces.get(i).getY() == kingY)
+            {
+                outputString += "the file";
+            }
+
+            // If we got to here, it's a diagonal
+
+            // If the king is in the top left or bottom right quadrant
+            else if((kingX < 4 && kingY < 4) || (kingX > 3 && kingY > 3))
+            {
+                if((kingLoc % 11) == (otherLoc % 11))
+                {
+                    outputString += "the long diagonal";
+                }
+                else
+                {
+                    outputString += "the short diagonal";
+                }
+            }
+            else
+            {
+                if((kingLoc % 7) == (otherLoc % 7))
+                {
+                    outputString += "the long diagonal";
+                }
+                else
+                {
+                    outputString += "the short diagonal";
+                }
+            }
+        }
+        return outputString + ".";
     }
 
     public void setBoardLocation(Piece[][] board, Piece p, int loc)
