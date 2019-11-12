@@ -471,7 +471,7 @@ public class ChessBoard
         // Print check message
         if(this.isInCheck(this.getOtherTeam(p.getTeam()), this.pieces))
         {
-            System.out.println("The " + this.manager.teamToString(this.getOtherTeam(p.getTeam())) + " king is in check.");
+            System.out.println(this.getCheckDirections(this.getOtherTeam(p.getTeam()), this.pieces));
         }
 
         this.isUpdating = false;
@@ -564,11 +564,11 @@ public class ChessBoard
             }
             else if(checkingPieces.get(i).getX() == kingX)
             {
-                outputString += "the rank";
+                outputString += "the file";
             }
             else if(checkingPieces.get(i).getY() == kingY)
             {
-                outputString += "the file";
+                outputString += "the rank";
             }
 
             // If we got to here, it's a diagonal
