@@ -13,8 +13,15 @@ public class GameManager
     private boolean gameIsActive;
     private boolean isBetweenTurns;
 
+    private String whiteName;
+    private String blackName;
+
     public GameManager(int width, int height) throws IOException
     {
+        this.whiteName = JOptionPane.showInputDialog("Enter the name of the player controlling the white pieces: ");
+        this.blackName = JOptionPane.showInputDialog("Enter the name of the player controlling the black pieces: ");
+        this.setNames();
+
         this.windowWidth = width;
         this.windowHeight = height;
         this.board = new ChessBoard(this);
@@ -105,6 +112,43 @@ public class GameManager
         }
     }
 
+    // If the users entered any blank names, put "Player 1" or "Player 2"
+    public void setNames()
+    {
+        if(this.whiteName == null || this.whiteName.equals(""))
+        {
+            this.whiteName = "Player 1";
+        }
+        if(this.blackName == null || this.blackName.equals(""))
+        {
+            this.blackName = "Player 2";
+        }
+    }
+
+    // Return the name of the player whose turn it is
+    public String curPlayersName()
+    {
+        if(this.whoseTurn == Team.White)
+        {
+            return this.whiteName;
+        }
+        else
+        {
+            return this.blackName;
+        }
+    }
+    public String otherPlayersName()
+    {
+        if(this.whoseTurn == Team.White)
+        {
+            return this.blackName;
+        }
+        else
+        {
+            return this.whiteName;
+        }
+    }
+
     // ======================================
     //
     //          Reacting to Clicks
@@ -157,11 +201,13 @@ public class GameManager
                     this.board.move(this.board.getSelectedPiece(), loc);
                     this.unselectPiece();
                     this.isBetweenTurns = true;
-                    JOptionPane.showMessageDialog(null, "Your move is complete. " +
-                            "Call the other player over");
 
-                    JOptionPane.showMessageDialog(null, "Welcome back, Player. " +
-                            "Press ok when the other player is gone.");
+                    JOptionPane.showMessageDialog(null, "Your move is complete. " +
+                            "Call " + this.otherPlayersName() + " over and press OK once your pieces are hidden.");
+
+                    JOptionPane.showMessageDialog(null, "Welcome back, " +
+                            this.otherPlayersName() + ". " +
+                            "Press OK when " + this.curPlayersName() + " is gone.");
                     this.switchTurn();
                     this.isBetweenTurns = false;
                 }
