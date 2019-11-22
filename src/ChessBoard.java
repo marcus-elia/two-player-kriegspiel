@@ -161,16 +161,16 @@ public class ChessBoard
 
         // Print the last turn with bigger font
         curString = this.manager.getLastTurn();
-        g2d.setFont(new Font("Courier", Font.PLAIN, 24));
+        g2d.setFont(new Font("Courier", Font.PLAIN, 20));
         pixelLength =  g2d.getFontMetrics().stringWidth(curString);
-        g2d.drawString(curString, this.boardSize + this.manager.getWindowWidth() - pixelLength/2,
+        g2d.drawString(curString, this.boardSize +  (this.manager.getWindowWidth()  - this.boardSize)/2  - pixelLength/2,
                 this.manager.getWindowHeight() / 3);
 
         // Print two turns ago, but smaller
         curString = this.manager.getTwoTurnsAgo();
-        g2d.setFont(new Font("Courier", Font.PLAIN, 18));
+        g2d.setFont(new Font("Courier", Font.PLAIN, 14));
         pixelLength =  g2d.getFontMetrics().stringWidth(curString);
-        g2d.drawString(curString, this.boardSize + this.manager.getWindowWidth() - pixelLength/2,
+        g2d.drawString(curString, this.boardSize +  (this.manager.getWindowWidth()  - this.boardSize)/2 - pixelLength/2,
                 2*this.manager.getWindowHeight() / 3);
 
     }
