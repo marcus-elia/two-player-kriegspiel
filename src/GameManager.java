@@ -331,7 +331,7 @@ public class GameManager
     public boolean checkCanMove()
     {
         ArrayList<Piece> piecesToCheck;
-        if(this.whoseTurn == Team.White)
+        if(this.getNotWhoseTurn() == Team.White)
         {
             piecesToCheck = this.board.getWhitePieces();
         }
@@ -365,7 +365,7 @@ public class GameManager
 
     public boolean checkForStalemate()
     {
-        if(!this.checkCanMove() && !this.board.isInCheck(this.whoseTurn, this.board.getPieces()))
+        if(!this.checkCanMove() && !this.board.isInCheck(this.getNotWhoseTurn(), this.board.getPieces()))
         {
             this.twoTurnsAgo = this.lastTurn;
             this.lastTurn = "The game has ended in stalemate.";
@@ -376,7 +376,7 @@ public class GameManager
 
     public boolean checkForCheckmate()
     {
-        if(!this.checkCanMove() && this.board.isInCheck(this.whoseTurn, this.board.getPieces()))
+        if(!this.checkCanMove() && this.board.isInCheck(this.getNotWhoseTurn(), this.board.getPieces()))
         {
             this.twoTurnsAgo = this.lastTurn;
             this.lastTurn = this.otherPlayersName() + " is in checkmate.";
