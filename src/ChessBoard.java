@@ -523,7 +523,7 @@ public class ChessBoard
         // If we are recording the move, write it down for the manager
         if(recordMove)
         {
-            this.manager.getMoves().add(new Move(p.getPieceType(), p.getX(), p.getY(), x, y, captured, checked));
+            this.manager.getMoves().add(new Move(p.getPieceType(), prevX, prevY, x, y, captured, checked));
         }
 
 
@@ -788,6 +788,7 @@ public class ChessBoard
     public String moveForReplay(Move m) throws IOException
     {
         // Don't write the move down
+        System.out.println(m.toString());
         return this.move(this.pieces[m.x1][m.y1], coordsToLocation(m.x2, m.y2), false);
     }
 }
