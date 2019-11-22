@@ -272,9 +272,8 @@ public class GameManager
                                 this.otherPlayersName() + ". " +
                                 "Press OK when " + this.curPlayersName() + " is gone.");
                         this.switchTurn();
-                        this.isBetweenTurns = false;
                     }
-
+                    this.isBetweenTurns = false;
                 }
                 else
                 {
@@ -282,26 +281,6 @@ public class GameManager
                 }
             }
         }
-
-
-        /*if(this.checkForDraw())
-        {
-            System.out.println("The game is a draw.");
-            this.currentStatus = GameStatus.PostGame;
-            this.gameIsActive = false;
-        }
-        if(this.checkForStalemate())
-        {
-            System.out.println("The game is a stalemate");
-            this.currentStatus = GameStatus.PostGame;
-            this.gameIsActive = false;
-        }
-        if(this.checkForCheckmate())
-        {
-            System.out.println("Checkmate");
-            this.currentStatus = GameStatus.PostGame;
-            this.gameIsActive = false;
-        }*/
     }
 
     public void selectPiece(int mx, int my)
@@ -379,7 +358,8 @@ public class GameManager
         if(!this.checkCanMove() && this.board.isInCheck(this.getNotWhoseTurn(), this.board.getPieces()))
         {
             this.twoTurnsAgo = this.lastTurn;
-            this.lastTurn = this.otherPlayersName() + " is in checkmate.";
+            this.lastTurn = this.teamToStringC(this.getNotWhoseTurn()) + " is in checkmate. " +
+                            this.curPlayersName() + " wins.";
             return true;
         }
         return false;
