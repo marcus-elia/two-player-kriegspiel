@@ -238,20 +238,32 @@ public class GameManager
                 // If they click a valid move, make the move
                 else if(this.board.canMove(this.board.getSelectedPiece(), loc))
                 {
+                    // Update the status strings summarizing the last two moves
                     this.twoTurnsAgo = "" + this.lastTurn;
                     this.lastTurn = this.board.move(this.board.getSelectedPiece(), loc);
                     System.out.println(this.lastTurn);
+
+                    // Stop highlighting the piece, since it has moved
                     this.unselectPiece();
+
+                    // Don't accept clicks, since a transition has to happen
                     this.isBetweenTurns = true;
 
-                    JOptionPane.showMessageDialog(null, "Your move is complete. " +
-                            "Call " + this.otherPlayersName() + " over and press OK once your pieces are hidden.");
+                    // Check if the game is over
+                    this.checkForGameEnd();
 
-                    JOptionPane.showMessageDialog(null, "Welcome back, " +
-                            this.otherPlayersName() + ". " +
-                            "Press OK when " + this.curPlayersName() + " is gone.");
-                    this.switchTurn();
-                    this.isBetweenTurns = false;
+                    if(this.currentStatus == GameStatus.Game)
+                    {
+                        JOptionPane.showMessageDialog(null, "Your move is complete. " +
+                                "Call " + this.otherPlayersName() + " over and press OK once your pieces are hidden.");
+
+                        JOptionPane.showMessageDialog(null, "Welcome back, " +
+                                this.otherPlayersName() + ". " +
+                                "Press OK when " + this.curPlayersName() + " is gone.");
+                        this.switchTurn();
+                        this.isBetweenTurns = false;
+                    }
+
                 }
                 else
                 {
@@ -260,8 +272,8 @@ public class GameManager
             }
         }
 
-        // Check if the game is over
-        if(this.checkForDraw())
+
+        /*if(this.checkForDraw())
         {
             System.out.println("The game is a draw.");
             this.currentStatus = GameStatus.PostGame;
@@ -278,7 +290,7 @@ public class GameManager
             System.out.println("Checkmate");
             this.currentStatus = GameStatus.PostGame;
             this.gameIsActive = false;
-        }
+        }*/
     }
 
     public void selectPiece(int mx, int my)
@@ -331,16 +343,45 @@ public class GameManager
     // Return true if both team have only a king
     public boolean checkForDraw()
     {
-        return this.board.getWhitePieces().size() == 1 && this.board.getBlackPieces().size() == 1;
+        if(this.board.getWhitePieces().size() == 1 && this.board.getBlackPieces().size() == 1)
+        {
+            this.twoTurnsAgo = this.lastTurn;
+            this.lastTurn = "The game is a draw.";
+            return true;
+        }
+        return false;
     }
 
     public boolean checkForStalemate()
     {
-        return !this.checkCanMove() && !this.board.isInCheck(this.whoseTurn, this.board.getPieces());
+        if(!this.checkCanMove() && !this.board.isInCheck(this.whoseTurn, this.board.getPieces()))
+        {
+            this.twoTurnsAgo = this.lastTurn;
+            this.lastTurn = "The game has ended in stalemate.";
+            return true;
+        }
+        return false;
     }
 
     public boolean checkForCheckmate()
     {
-        return !this.checkCanMove() && this.board.isInCheck(this.whoseTurn, this.board.getPieces());
+        if(!this.checkCanMove() && this.board.isInCheck(this.whoseTurn, this.board.getPieces()))
+        {
+            this.twoTurnsAgo = this.lastTurn;
+            this.lastTurn = this.otherPlayersName() + " is in checkmate.";
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkForGameEnd()
+    {
+        if(checkForDraw() || checkForStalemate() || checkForCheckmate())
+        {
+            this.currentStatus = GameStatus.PostGame;
+            this.gameIsActive = false;
+            return true;
+        }
+        return false;
     }
 }
