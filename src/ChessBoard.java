@@ -158,20 +158,30 @@ public class ChessBoard
     {
         String curString;
         int pixelLength;
+        ArrayList<String> stringPieces;
 
         // Print the last turn with bigger font
-        curString = this.manager.getLastTurn();
+        stringPieces = splitString(this.manager.getLastTurn(), 20);
         g2d.setFont(new Font("Courier", Font.PLAIN, 20));
-        pixelLength =  g2d.getFontMetrics().stringWidth(curString);
-        g2d.drawString(curString, this.boardSize +  (this.manager.getWindowWidth()  - this.boardSize)/2  - pixelLength/2,
-                this.manager.getWindowHeight() / 3);
+        for(int i = 0; i < stringPieces.size(); i++)
+        {
+            curString = stringPieces.get(i);
+            pixelLength =  g2d.getFontMetrics().stringWidth(curString);
+            g2d.drawString(curString, this.boardSize +  (this.manager.getWindowWidth()  - this.boardSize)/2  - pixelLength/2,
+                    this.manager.getWindowHeight() / 3 + i*20);
+        }
+
 
         // Print two turns ago, but smaller
-        curString = this.manager.getTwoTurnsAgo();
+        stringPieces = splitString(this.manager.getTwoTurnsAgo(), 20);
         g2d.setFont(new Font("Courier", Font.PLAIN, 14));
-        pixelLength =  g2d.getFontMetrics().stringWidth(curString);
-        g2d.drawString(curString, this.boardSize +  (this.manager.getWindowWidth()  - this.boardSize)/2 - pixelLength/2,
-                2*this.manager.getWindowHeight() / 3);
+        for(int i = 0; i < stringPieces.size(); i++)
+        {
+            curString = stringPieces.get(i);
+            pixelLength =  g2d.getFontMetrics().stringWidth(curString);
+            g2d.drawString(curString, this.boardSize +  (this.manager.getWindowWidth()  - this.boardSize)/2  - pixelLength/2,
+                    2*this.manager.getWindowHeight() / 3 + i*20);
+        }
 
     }
 
@@ -726,5 +736,30 @@ public class ChessBoard
     public String locationToString(int loc)
     {
         return coordsToString(locationToCoords(loc)[0], locationToCoords(loc)[1]);
+    }
+
+    // Add new line characters to a string if it gets too long
+    public ArrayList<String> splitString(String s, int maxLine)
+    {
+        ArrayList<String> strings = new ArrayList<String>();
+        String curString = "";
+
+        for(int i = 0; i < s.length(); i++)
+        {
+            curString += s.charAt(i);
+
+            // When the string is too long, add it to the list when you reach a space
+            if(curString.length() >= maxLine && s.charAt(i) == ' ')
+            {
+                strings.add(curString);
+                curString = "";
+            }
+        }
+        // If we didn't add the last string yet
+        if(curString.length() > 0)
+        {
+            strings.add(curString);
+        }
+        return strings;
     }
 }
