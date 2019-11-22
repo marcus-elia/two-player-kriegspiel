@@ -90,11 +90,7 @@ public class ChessBoard
         }
 
         this.drawLabels(g2d);
-        /*if(this.isUpdating)
-        {
-            g2d.setColor(new Color(1, 1, 1, .1f));
-            g2d.fillRect(0, 0, this.manager.getWindowWidth(), this.manager.getWindowHeight());
-        }*/
+        this.drawStatusStrings(g2d);
 
         // draw a white rectangle over the board during transitions
         if(this.manager.getIsBetweenTurns())
@@ -156,6 +152,26 @@ public class ChessBoard
             g2d.drawString(curChar, this.boardSize + pixelLength/2,
                     this.boardSize - (2*i-1)*this.squareWidth/2 + 8);
         }
+    }
+
+    public void drawStatusStrings(Graphics2D g2d)
+    {
+        String curString;
+        int pixelLength;
+
+        // Print the last turn with bigger font
+        curString = this.manager.getLastTurn();
+        g2d.setFont(new Font("Courier", Font.PLAIN, 24));
+        pixelLength =  g2d.getFontMetrics().stringWidth(curString);
+        g2d.drawString(curString, this.boardSize + this.manager.getWindowWidth() - pixelLength/2,
+                this.manager.getWindowHeight() / 3);
+
+        // Print two turns ago, but smaller
+        curString = this.manager.getTwoTurnsAgo();
+        g2d.setFont(new Font("Courier", Font.PLAIN, 18));
+        pixelLength =  g2d.getFontMetrics().stringWidth(curString);
+        g2d.drawString(curString, this.boardSize + this.manager.getWindowWidth() - pixelLength/2,
+                2*this.manager.getWindowHeight() / 3);
 
     }
 
