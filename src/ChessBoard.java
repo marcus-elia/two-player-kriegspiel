@@ -774,4 +774,13 @@ public class ChessBoard
         }
         return strings;
     }
+
+
+
+    // For when the game is over and we are in replay mode, make the move,
+    // no questions asked
+    public String moveForReplay(Move m) throws IOException
+    {
+        return this.move(this.pieces[m.x1][m.y1], coordsToLocation(m.x2, m.y2));
+    }
 }
