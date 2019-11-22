@@ -24,6 +24,7 @@ public class GameManager
     private String twoTurnsAgo;
 
     private ArrayList<Move> moves;
+    private int replayMove;
 
     public GameManager(int width, int height) throws IOException
     {
@@ -44,7 +45,8 @@ public class GameManager
         this.lastTurn = "";
         this.twoTurnsAgo = "";
 
-        moves = new ArrayList<Move>();
+        this.moves = new ArrayList<Move>();
+        this.replayMove = 0;
 
         JOptionPane.showMessageDialog(null, "It is " + this.whiteName + "'s turn. Click OK when " +
                 this.blackName + " has left.");
@@ -219,10 +221,28 @@ public class GameManager
 
     public void reactToClick(int mx, int my) throws IOException
     {
+        // If we are in replayMode, move whenever there is a click
+        if(this.currentStatus == GameStatus.Replay)
+        {
+            this.board.moveForReplay(this.moves.get(this.replayMove));
+            this.replayMove++;
+
+            // If we have replayed through the whole game
+            if(this.replayMove == this.moves.size())
+            {
+                this.currentStatus = GameStatus.PostGame;
+                this.replayMove = 0;
+                this.gameEndChoices();
+            }
+            return;
+        }
+
         if(this.board.isUpdating() || !this.gameIsActive)
         {
             return;
         }
+
+
 
         // If the click is on the board
         if(mx <= this.board.getBoardSize() && my <= this.board.getBoardSize())
@@ -262,7 +282,7 @@ public class GameManager
                 {
                     // Update the status strings summarizing the last two moves
                     this.twoTurnsAgo = "" + this.lastTurn;
-                    this.lastTurn = this.board.move(this.board.getSelectedPiece(), loc);
+                    this.lastTurn = this.board.move(this.board.getSelectedPiece(), loc, true);
                     System.out.println(this.lastTurn);
 
                     // Stop highlighting the piece, since it has moved
@@ -382,8 +402,26 @@ public class GameManager
         {
             this.currentStatus = GameStatus.PostGame;
             this.gameIsActive = false;
+            this.gameEndChoices();
             return true;
         }
         return false;
+    }
+
+    public void gameEndChoices()
+    {
+        String[] options = {"Replay the Game", "Quit"};
+        int choice = JOptionPane.showOptionDialog(null, "What would you like to do next?",
+                "Game over.",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+        if(choice == 1)
+        {
+            System.exit(0);
+        }
+        else if(choice == 0)
+        {
+
+        }
     }
 }
