@@ -23,6 +23,8 @@ public class GameManager
     private String lastTurn;
     private String twoTurnsAgo;
 
+    private ArrayList<Move> moves;
+
     public GameManager(int width, int height) throws IOException
     {
         this.whiteName = JOptionPane.showInputDialog("Enter the name of the player controlling the white pieces: ");
@@ -41,6 +43,8 @@ public class GameManager
 
         this.lastTurn = "";
         this.twoTurnsAgo = "";
+
+        moves = new ArrayList<Move>();
 
         JOptionPane.showMessageDialog(null, "It is " + this.whiteName + "'s turn. Click OK when " +
                 this.blackName + " has left.");
@@ -107,6 +111,10 @@ public class GameManager
     public GameStatus getCurrentStatus()
     {
         return this.currentStatus;
+    }
+    public ArrayList<Move> getMoves()
+    {
+        return this.moves;
     }
 
 
