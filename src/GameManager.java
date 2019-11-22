@@ -78,6 +78,17 @@ public class GameManager
     {
         return this.whoseTurn;
     }
+    public Team getNotWhoseTurn()
+    {
+        if(this.whoseTurn == Team.White)
+        {
+            return Team.Black;
+        }
+        else
+        {
+            return Team.White;
+        }
+    }
     public boolean getIsBetweenTurns()
     {
         return this.isBetweenTurns;
