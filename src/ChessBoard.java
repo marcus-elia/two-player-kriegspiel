@@ -446,6 +446,10 @@ public class ChessBoard
 
         String statusString = "";
 
+        // Things for the Move object we will add to the manager's list of Moves
+        boolean captured = false;
+        boolean checked = false;
+
         // If we shouldn't be allowed to move there, raise an exception
         if(this.containsTeammate(p.getTeam(), loc))
         {
@@ -457,6 +461,8 @@ public class ChessBoard
         // If we are capturing an opponent
         if(this.containsEnemy(p.getTeam(), loc))
         {
+            captured = true;
+
             statusString += this.manager.teamToStringC(p.getTeam()) + " has moved and captured on "
                     + locationToString(loc) + ".\n";
             if(p.getTeam() == Team.White)
@@ -506,10 +512,14 @@ public class ChessBoard
         // Print check message
         if(this.isInCheck(this.getOtherTeam(p.getTeam()), this.pieces))
         {
+            checked = true;
+
             statusString += this.getCheckDirections(this.getOtherTeam(p.getTeam()), this.pieces) + "\n";
         }
 
         this.isUpdating = false;
+
+        this.manager.getMoves().add(new Move(p.getPieceType(), p.getX(), p.getY(), x, y, captured, checked));
 
         return statusString;
     }
