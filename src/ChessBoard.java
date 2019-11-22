@@ -70,10 +70,11 @@ public class ChessBoard
                 g2d.fillRect(i*this.squareWidth, j*this.squareWidth, this.squareWidth, this.squareWidth);
 
                 // fill in the piece if there is a piece there and the piece belongs to
-                // whoever is moving or if it is postgame
+                // whoever is moving or if it is postgame or replay
                 if(renderableBoard[i][j] != null &&
                         (renderableBoard[i][j].getTeam() == this.manager.getWhoseTurn() ||
-                                this.manager.getCurrentStatus() == GameStatus.PostGame))
+                                this.manager.getCurrentStatus() == GameStatus.PostGame) ||
+                                this.manager.getCurrentStatus() == GameStatus.Replay)
                 {
                     g2d.drawImage(renderableBoard[i][j].getImage(), i*this.squareWidth, j*this.squareWidth,
                             this.squareWidth, this.squareWidth, null);
