@@ -73,8 +73,8 @@ public class ChessBoard
                 // whoever is moving or if it is postgame or replay
                 if(renderableBoard[i][j] != null &&
                         (renderableBoard[i][j].getTeam() == this.manager.getWhoseTurn() ||
-                                this.manager.getCurrentStatus() == GameStatus.PostGame) ||
-                                this.manager.getCurrentStatus() == GameStatus.Replay)
+                                this.manager.getCurrentStatus() == GameStatus.PostGame ||
+                                this.manager.getCurrentStatus() == GameStatus.Replay))
                 {
                     g2d.drawImage(renderableBoard[i][j].getImage(), i*this.squareWidth, j*this.squareWidth,
                             this.squareWidth, this.squareWidth, null);
