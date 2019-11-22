@@ -401,6 +401,7 @@ public class GameManager
     {
         if(checkForDraw() || checkForStalemate() || checkForCheckmate())
         {
+            this.isBetweenTurns = false;
             this.currentStatus = GameStatus.PostGame;
             this.gameIsActive = false;
             this.gameEndChoices();
