@@ -8,6 +8,9 @@ public class GameManager
     private ChessBoard board;
     private int windowWidth;
     private int windowHeight;
+
+    // Game management
+    private GameStatus currentStatus;
     private boolean isPieceSelected; // does the user have a piece selected
     private Team whoseTurn;
     private boolean gameIsActive;
@@ -29,6 +32,8 @@ public class GameManager
         this.windowWidth = width;
         this.windowHeight = height;
         this.board = new ChessBoard(this);
+
+        this.currentStatus = GameStatus.Game;
         this.isPieceSelected = false;
         this.whoseTurn = Team.White;
         this.gameIsActive = true;
@@ -84,6 +89,10 @@ public class GameManager
     public String getTwoTurnsAgo()
     {
         return this.twoTurnsAgo;
+    }
+    public GameStatus getCurrentStatus()
+    {
+        return this.currentStatus;
     }
 
 
@@ -255,16 +264,19 @@ public class GameManager
         if(this.checkForDraw())
         {
             System.out.println("The game is a draw.");
+            this.currentStatus = GameStatus.PostGame;
             this.gameIsActive = false;
         }
         if(this.checkForStalemate())
         {
             System.out.println("The game is a stalemate");
+            this.currentStatus = GameStatus.PostGame;
             this.gameIsActive = false;
         }
         if(this.checkForCheckmate())
         {
             System.out.println("Checkmate");
+            this.currentStatus = GameStatus.PostGame;
             this.gameIsActive = false;
         }
     }
