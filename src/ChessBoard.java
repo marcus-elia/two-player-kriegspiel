@@ -440,7 +440,7 @@ public class ChessBoard
         return p.getMovableLocations().contains(coordsToLocation(x, y));
     }
 
-    public String move(Piece p, int loc) throws IOException
+    public String move(Piece p, int loc, boolean recordMove) throws IOException
     {
         this.isUpdating = true;
 
@@ -519,7 +519,12 @@ public class ChessBoard
 
         this.isUpdating = false;
 
-        this.manager.getMoves().add(new Move(p.getPieceType(), p.getX(), p.getY(), x, y, captured, checked));
+        // If we are recording the move, write it down for the manager
+        if(recordMove)
+        {
+            this.manager.getMoves().add(new Move(p.getPieceType(), p.getX(), p.getY(), x, y, captured, checked));
+        }
+
 
         return statusString;
     }
@@ -781,6 +786,7 @@ public class ChessBoard
     // no questions asked
     public String moveForReplay(Move m) throws IOException
     {
-        return this.move(this.pieces[m.x1][m.y1], coordsToLocation(m.x2, m.y2));
+        // Don't write the move down
+        return this.move(this.pieces[m.x1][m.y1], coordsToLocation(m.x2, m.y2), false);
     }
 }
