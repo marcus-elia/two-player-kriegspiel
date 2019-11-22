@@ -41,6 +41,9 @@ public class GameManager
 
         this.lastTurn = "";
         this.twoTurnsAgo = "";
+
+        JOptionPane.showMessageDialog(null, "It is " + this.whiteName + "'s turn. Click OK when " +
+                this.blackName + " has left.");
     }
 
     public void tick()
