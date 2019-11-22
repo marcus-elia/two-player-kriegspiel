@@ -226,6 +226,7 @@ public class GameManager
         {
             this.board.moveForReplay(this.moves.get(this.replayMove));
             this.replayMove++;
+            this.switchTurn();
 
             // If we have replayed through the whole game
             if(this.replayMove == this.moves.size())
@@ -424,6 +425,8 @@ public class GameManager
             this.currentStatus = GameStatus.Replay;
             this.board = new ChessBoard(this);
             this.whoseTurn = Team.White;
+            this.lastTurn = "Click anywhere to replay the next move.";
+            this.twoTurnsAgo = "";
         }
     }
 }
