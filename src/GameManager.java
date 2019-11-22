@@ -16,6 +16,10 @@ public class GameManager
     private String whiteName;
     private String blackName;
 
+    // Keep track of the info strings from the last two turns to display them
+    private String lastTurn;
+    private String twoTurnsAgo;
+
     public GameManager(int width, int height) throws IOException
     {
         this.whiteName = JOptionPane.showInputDialog("Enter the name of the player controlling the white pieces: ");
@@ -29,6 +33,9 @@ public class GameManager
         this.whoseTurn = Team.White;
         this.gameIsActive = true;
         this.isBetweenTurns = false;
+
+        this.lastTurn = "";
+        this.twoTurnsAgo = "";
     }
 
     public void tick()
@@ -69,6 +76,14 @@ public class GameManager
     public boolean getIsBetweenTurns()
     {
         return this.isBetweenTurns;
+    }
+    public String getLastTurn()
+    {
+        return this.lastTurn;
+    }
+    public String getTwoTurnsAgo()
+    {
+        return this.twoTurnsAgo;
     }
 
 
@@ -214,7 +229,9 @@ public class GameManager
                 // If they click a valid move, make the move
                 else if(this.board.canMove(this.board.getSelectedPiece(), loc))
                 {
-                    this.board.move(this.board.getSelectedPiece(), loc);
+                    this.twoTurnsAgo = "" + this.lastTurn;
+                    this.lastTurn = this.board.move(this.board.getSelectedPiece(), loc);
+                    System.out.println(this.lastTurn);
                     this.unselectPiece();
                     this.isBetweenTurns = true;
 
