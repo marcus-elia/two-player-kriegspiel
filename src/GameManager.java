@@ -396,7 +396,7 @@ public class GameManager
         return false;
     }
 
-    public boolean checkForGameEnd()
+    public boolean checkForGameEnd() throws IOException
     {
         if(checkForDraw() || checkForStalemate() || checkForCheckmate())
         {
@@ -408,7 +408,7 @@ public class GameManager
         return false;
     }
 
-    public void gameEndChoices()
+    public void gameEndChoices() throws IOException
     {
         String[] options = {"Replay the Game", "Quit"};
         int choice = JOptionPane.showOptionDialog(null, "What would you like to do next?",
@@ -421,7 +421,9 @@ public class GameManager
         }
         else if(choice == 0)
         {
-
+            this.currentStatus = GameStatus.Replay;
+            this.board = new ChessBoard(this);
+            this.whoseTurn = Team.White;
         }
     }
 }
