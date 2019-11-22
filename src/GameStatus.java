@@ -2,5 +2,6 @@ public enum GameStatus
 {
     PreGame(),
     Game(),
-    PostGame();
+    PostGame(),
+    Replay();
 }
