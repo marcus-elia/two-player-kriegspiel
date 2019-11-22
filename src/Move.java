@@ -68,6 +68,6 @@ public class Move
     // coordsToString(3,4) = "d4"
     public String coordsToString(int x, int y)
     {
-        return (char)(x + 97) + Integer.toString(y + 1);
+        return (char)(x + 97) + Integer.toString(8 - y );
     }
 }
