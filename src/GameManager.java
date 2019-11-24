@@ -238,13 +238,14 @@ public class GameManager
             return;
         }
 
+        // If we should not accept a click right now, just return
         if(this.board.isUpdating() || !this.gameIsActive)
         {
             return;
         }
 
 
-
+        // Otherwise, handle the click
         // If the click is on the board
         if(mx <= this.board.getBoardSize() && my <= this.board.getBoardSize())
         {
@@ -264,11 +265,13 @@ public class GameManager
                     else // If they click on the other team's piece
                     {
                         System.out.println("That is not your piece.");
+                        JOptionPane.showMessageDialog(null, "That is not your piece.");
                     }
                 }
                 else
                 {
                     System.out.println("No piece there");
+                    JOptionPane.showMessageDialog(null, "There is no piece there.");
                 }
             }
             else
@@ -310,6 +313,8 @@ public class GameManager
                 else
                 {
                     System.out.println("That is not a legal move.");
+                    JOptionPane.showMessageDialog(null, "That is not a legal move. Try a " +
+                            "different square, or click on the selected piece again to deselect it.");
                 }
             }
         }
