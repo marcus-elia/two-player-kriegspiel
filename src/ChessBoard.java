@@ -89,7 +89,7 @@ public class ChessBoard
             g2d.setStroke(new BasicStroke(5));
             g2d.drawRect(this.selectedXCoord*this.squareWidth, this.selectedYCoord*this.squareWidth,
                     this.squareWidth, this.squareWidth);
-            highlightMovableLocations(g2d);
+            //highlightMovableLocations(g2d);
         }
 
         this.drawLabels(g2d);
