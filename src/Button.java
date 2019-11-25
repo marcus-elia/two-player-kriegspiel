@@ -7,14 +7,16 @@ public class Button
     private int xWidth;
     private int yWidth;
     private Color color;
+    private ColorScheme colorScheme;
 
-    public Button(int topLeftX, int topLeftY, int xWidth, int yWidth, Color color)
+    public Button(int topLeftX, int topLeftY, int xWidth, int yWidth, Color color, ColorScheme colorScheme)
     {
         this.topLeftX = topLeftX;
         this.topLeftY = topLeftY;
         this.xWidth = xWidth;
         this.yWidth = yWidth;
         this.color = color;
+        this.colorScheme = colorScheme;
     }
 
     public void render(Graphics2D g2d)
@@ -38,5 +40,10 @@ public class Button
     public void resetAlpha()
     {
         this.color = new Color(color.getRed(), color.getGreen(), color.getBlue(), 1f);
+    }
+
+    public ColorScheme getColorScheme()
+    {
+        return this.colorScheme;
     }
 }
