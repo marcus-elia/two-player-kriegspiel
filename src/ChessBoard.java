@@ -664,7 +664,7 @@ public class ChessBoard
             // If the king is in the top left or bottom right quadrant
             else if((kingX < 4 && kingY < 4) || (kingX > 3 && kingY > 3))
             {
-                if((kingLoc % 11) == (otherLoc % 11))
+                if((kingLoc % 9) == (otherLoc % 9))
                 {
                     outputString += "the long diagonal";
                 }
