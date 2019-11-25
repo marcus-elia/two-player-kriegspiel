@@ -90,7 +90,7 @@ public class GameManager
     {
         this.board.render(g2d);
 
-        if(this.currentStatus != GameStatus.PreGame)
+        if(this.currentStatus != GameStatus.PreGame && !this.isBetweenTurns)
         {
             this.drawButtons(g2d);
         }
