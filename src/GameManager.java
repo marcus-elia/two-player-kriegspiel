@@ -31,6 +31,7 @@ public class GameManager
     private Button greenButton;
     private Button blueButton;
     private Button purpleButton;
+    private ArrayList<Button> colorButtons;
 
     public GameManager(int width, int height) throws IOException
     {
@@ -72,6 +73,12 @@ public class GameManager
                 buttonSize, buttonSize, new Color(0,0,255), ColorScheme.Blue);
         this.purpleButton = new Button(this.board.getBoardSize() + 7*buttonSize, 10,
                 buttonSize, buttonSize, new Color(120,0,150), ColorScheme.Purple);
+
+        colorButtons = new ArrayList<Button>();
+        colorButtons.add(redButton);
+        colorButtons.add(greenButton);
+        colorButtons.add(blueButton);
+        colorButtons.add(purpleButton);
     }
 
     public void tick()
@@ -83,7 +90,7 @@ public class GameManager
     {
         this.board.render(g2d);
 
-        if(this.currentStatus == GameStatus.Game)
+        if(this.currentStatus != GameStatus.PreGame)
         {
             this.drawButtons(g2d);
         }
@@ -255,6 +262,15 @@ public class GameManager
 
     public void reactToClick(int mx, int my) throws IOException
     {
+        // Checking for a color change click
+        for(Button b : this.colorButtons)
+        {
+            if(b.isInside(mx, my))
+            {
+                this.board.setColors(b.getColorScheme());
+                return;
+            }
+        }
         // If we are in replayMode, move whenever there is a click
         if(this.currentStatus == GameStatus.Replay)
         {
