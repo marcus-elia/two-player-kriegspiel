@@ -15,6 +15,11 @@ public class ChessBoard
     private int squareWidth; // the width of the chess board squares
     private int boardSize;   // the size of the entire board
 
+    // the color of the squares
+    private Color lightSquareColor;
+    private Color darkSquareColor;
+    private Color highlightColor;
+
     private int selectedXCoord;
     private int selectedYCoord;
 
@@ -44,6 +49,9 @@ public class ChessBoard
 
         this.fadeAlpha = 0;
 
+        this.lightSquareColor = new Color(100, 250, 250);
+        this.darkSquareColor = new Color(50, 50, 150);
+
     }
 
     public void tick()
@@ -61,11 +69,11 @@ public class ChessBoard
                 // draw the empty spaces
                 if((i + j) % 2 == 0)
                 {
-                    g2d.setColor(new Color(100, 250, 250));
+                    g2d.setColor(this.lightSquareColor);
                 }
                 else
                 {
-                    g2d.setColor(new Color(50, 50, 150));
+                    g2d.setColor(this.darkSquareColor);
                 }
                 g2d.fillRect(i*this.squareWidth, j*this.squareWidth, this.squareWidth, this.squareWidth);
 
@@ -85,7 +93,7 @@ public class ChessBoard
         // highlight if a piece is selected
         if(this.manager.getIsPieceSelected())
         {
-            g2d.setColor(Color.magenta);
+            g2d.setColor(this.highlightColor);
             g2d.setStroke(new BasicStroke(5));
             g2d.drawRect(this.selectedXCoord*this.squareWidth, this.selectedYCoord*this.squareWidth,
                     this.squareWidth, this.squareWidth);
@@ -186,6 +194,34 @@ public class ChessBoard
                     2*this.manager.getWindowHeight() / 3 + i*20);
         }
 
+    }
+
+    public void setColors(ColorScheme inputScheme)
+    {
+        if(inputScheme == ColorScheme.Blue)
+        {
+            this.lightSquareColor = new Color(100, 200, 250);
+            this.darkSquareColor = new Color(50, 50, 150);
+            this.highlightColor = new Color(220, 50, 220);
+        }
+        else if(inputScheme == ColorScheme.Red)
+        {
+            this.lightSquareColor = new Color(230, 120, 100);
+            this.darkSquareColor = new Color(150, 50, 50);
+            this.highlightColor = new Color(100, 200, 250);
+        }
+        else if(inputScheme == ColorScheme.Green)
+        {
+            this.lightSquareColor = new Color(100, 250, 100);
+            this.darkSquareColor = new Color(20, 150, 50);
+            this.highlightColor = new Color(80, 76, 26);
+        }
+        else if(inputScheme == ColorScheme.Purple)
+        {
+            this.lightSquareColor = new Color(150, 100, 150);
+            this.darkSquareColor = new Color(120, 10, 150);
+            this.highlightColor = new Color(10, 10, 26);
+        }
     }
 
     // ==========================================
