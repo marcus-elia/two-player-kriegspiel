@@ -264,14 +264,14 @@ public class GameManager
                     }
                     else // If they click on the other team's piece
                     {
-                        System.out.println("That is not your piece.");
-                        JOptionPane.showMessageDialog(null, "That is not your piece.");
+                        System.out.println("You do not have a piece there.");
+                        JOptionPane.showMessageDialog(null, "You do not have a piece there.");
                     }
                 }
                 else
                 {
-                    System.out.println("No piece there");
-                    JOptionPane.showMessageDialog(null, "There is no piece there.");
+                    System.out.println("You do not have a piece there.");
+                    JOptionPane.showMessageDialog(null, "You do not have a piece there.");
                 }
             }
             else
