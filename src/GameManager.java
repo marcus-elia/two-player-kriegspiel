@@ -26,6 +26,12 @@ public class GameManager
     private ArrayList<Move> moves;
     private int replayMove;
 
+    // The buttons for changing colors
+    private Button redButton;
+    private Button greenButton;
+    private Button blueButton;
+    private Button purpleButton;
+
     public GameManager(int width, int height) throws IOException
     {
         this.whiteName = JOptionPane.showInputDialog("Enter the name of the player controlling the white pieces: ");
@@ -48,8 +54,24 @@ public class GameManager
         this.moves = new ArrayList<Move>();
         this.replayMove = 0;
 
+        this.initializeButtons();
+
         JOptionPane.showMessageDialog(null, "It is " + this.whiteName + "'s turn. Click OK when " +
                 this.blackName + " has left.");
+    }
+
+    public void initializeButtons()
+    {
+        int availableWidth = this.windowWidth - this.board.getBoardSize();
+        int buttonSize = availableWidth / 9;
+        this.redButton = new Button(this.board.getBoardSize() + buttonSize, 10,
+                buttonSize, buttonSize, new Color(255,0,0), ColorScheme.Red);
+        this.greenButton = new Button(this.board.getBoardSize() + 3*buttonSize, 10,
+                buttonSize, buttonSize, new Color(0,255,0), ColorScheme.Green);
+        this.blueButton = new Button(this.board.getBoardSize() + 5*buttonSize, 10,
+                buttonSize, buttonSize, new Color(0,0,255), ColorScheme.Blue);
+        this.purpleButton = new Button(this.board.getBoardSize() + 7*buttonSize, 10,
+                buttonSize, buttonSize, new Color(120,0,150), ColorScheme.Purple);
     }
 
     public void tick()
@@ -60,8 +82,20 @@ public class GameManager
     public void render(Graphics2D g2d)
     {
         this.board.render(g2d);
+
+        if(this.currentStatus == GameStatus.Game)
+        {
+            this.drawButtons(g2d);
+        }
     }
 
+    public void drawButtons(Graphics2D g2d)
+    {
+        this.redButton.render(g2d);
+        this.greenButton.render(g2d);
+        this.blueButton.render(g2d);
+        this.purpleButton.render(g2d);
+    }
     // ===============================
     //
     //           Getters
