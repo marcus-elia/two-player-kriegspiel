@@ -49,8 +49,7 @@ public class ChessBoard
 
         this.fadeAlpha = 0;
 
-        this.lightSquareColor = new Color(100, 250, 250);
-        this.darkSquareColor = new Color(50, 50, 150);
+        this.setColors(ColorScheme.Red);
 
     }
 
