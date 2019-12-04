@@ -1,3 +1,8 @@
+/*
+All images of chess pieces are from https://opengameart.org/content/chess-pieces
+ */
+
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
